@@ -11,9 +11,11 @@ public class Player : MonoBehaviour
     [SerializeField] float jumpTimeThreshold;
     [SerializeField] float jumpForce;
     [SerializeField] float speed;
-    [SerializeField] float jumpupValue;
+    [SerializeField] float jumpUpValue;
     [SerializeField] float jumpSideValue;
+    [SerializeField] float distanceToGround;
 
+    bool isFacingRight = true;
     bool shouldMove;
     bool shouldJump;
     Vector2 myMovementVector;
@@ -28,7 +30,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        jumpSideValue *= -1;
     }
 
     // Update is called once per frame
@@ -39,6 +41,16 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (Input.GetAxisRaw("Horizontal") > 0.5)
+        {
+            isFacingRight = true;
+            Debug.Log("I'm facing right");
+        }
+        if (Input.GetAxisRaw("Horizontal") < -0.5)
+        {
+            isFacingRight = false;
+            Debug.Log("I'm not");
+        }
 
         Movement();
         Jump();
@@ -53,24 +65,44 @@ public class Player : MonoBehaviour
         }
     }
 
+    bool IsOnGround()
+    {
+        Vector2 leftSideRay = new Vector2(transform.position.x - 0.5f, transform.position.y - 0.5f);
+        Vector2 rightSideRay = new Vector2(transform.position.x + 0.5f, transform.position.y - 0.5f);
+
+        return Physics2D.Raycast(leftSideRay, Vector2.down, distanceToGround) || Physics2D.Raycast(rightSideRay, Vector2.down, distanceToGround);
+    }
+
     void Jump()
     {
-        if (shouldJump) 
+        if (shouldJump && IsOnGround()) 
         {
             shouldMove = false;
-            Vector2 jumpDirection = new Vector2(0.5f, 0.5f);
+
+            if(!isFacingRight)
+            {
+                jumpSideValue *= -1;
+            }
+            else
+            {
+                jumpSideValue *= -1;
+            }
+
+            Vector2 jumpDirection = new Vector2(jumpSideValue, jumpUpValue);
             jumpDirection.Normalize();
             rb.AddForce(jumpDirection * jumpForce, ForceMode2D.Impulse); 
 
             shouldJump = false;
         }
+
+        //when landed set vector2 = 0;
     }
 
     public void OnMovement(InputAction.CallbackContext aCallbackContext)
     {
         myMovementVector = aCallbackContext.ReadValue<Vector2>();
 
-        if (myMovementVector != Vector2.zero)
+        if (myMovementVector != Vector2.zero && IsOnGround())
         {
             shouldMove = true;
         }
