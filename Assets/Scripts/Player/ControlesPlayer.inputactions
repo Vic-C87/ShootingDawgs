@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Menu",
+                    "name": "SkillSelect",
                     "type": "Button",
                     "id": "6f06953e-eeef-469b-b466-ffaa0a28f1df",
                     "expectedControlType": "Button",
@@ -151,7 +151,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Menu",
+                    "action": "SkillSelect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

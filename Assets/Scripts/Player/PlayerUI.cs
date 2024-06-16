@@ -9,7 +9,11 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] float myMaxDistance;
     [SerializeField] Sprite mySpriteFrame;
     [SerializeField] Image myImage;
+    [SerializeField] Image myImageSelected;
+
+    [SerializeField] Player myPlayer;
     ECursorLocation myCursorLocation;
+    ESkills mySelectedSkill;
 
 
     void Awake()
@@ -40,23 +44,31 @@ public class PlayerUI : MonoBehaviour
         {
             case ECursorLocation.None:
                 mySpriteFrame = mySkillSpritePrefabs[0];
+                mySelectedSkill = ESkills.None;
                 break;
             case ECursorLocation.Top:
                 mySpriteFrame = mySkillSpritePrefabs[1];
+                mySelectedSkill = ESkills.None;
                 break;
             case ECursorLocation.Right:
                 mySpriteFrame = mySkillSpritePrefabs[2];
+                mySelectedSkill = ESkills.None;
                 break;
             case ECursorLocation.Bottom:
                 mySpriteFrame = mySkillSpritePrefabs[3];
+                mySelectedSkill = ESkills.None;
                 break;
             case ECursorLocation.Left:
                 mySpriteFrame = mySkillSpritePrefabs[4];
+                mySelectedSkill = ESkills.None;
                 break;
             default:
                 mySpriteFrame = mySkillSpritePrefabs[0];
+                mySelectedSkill = ESkills.None;
                 break;
         }
+        myImageSelected.sprite = mySpriteFrame;
+        myPlayer.SetSelectedSkill(mySelectedSkill);
     }
 
     void CheckCursorPosition()
@@ -136,7 +148,7 @@ public class PlayerUI : MonoBehaviour
         }
         else
         {
-            myImage.sprite = mySpriteFrame;
+            myImageSelected.sprite = mySpriteFrame;
         }
     }
 

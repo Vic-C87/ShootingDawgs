@@ -37,7 +37,7 @@ public partial class @ControlesPlayer: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Menu"",
+                    ""name"": ""SkillSelect"",
                     ""type"": ""Button"",
                     ""id"": ""6f06953e-eeef-469b-b466-ffaa0a28f1df"",
                     ""expectedControlType"": ""Button"",
@@ -173,7 +173,7 @@ public partial class @ControlesPlayer: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Menu"",
+                    ""action"": ""SkillSelect"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -196,7 +196,7 @@ public partial class @ControlesPlayer: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
-        m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
+        m_Player_SkillSelect = m_Player.FindAction("SkillSelect", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
     }
 
@@ -260,14 +260,14 @@ public partial class @ControlesPlayer: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Movement;
-    private readonly InputAction m_Player_Menu;
+    private readonly InputAction m_Player_SkillSelect;
     private readonly InputAction m_Player_Jump;
     public struct PlayerActions
     {
         private @ControlesPlayer m_Wrapper;
         public PlayerActions(@ControlesPlayer wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
-        public InputAction @Menu => m_Wrapper.m_Player_Menu;
+        public InputAction @SkillSelect => m_Wrapper.m_Player_SkillSelect;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -281,9 +281,9 @@ public partial class @ControlesPlayer: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
-            @Menu.started += instance.OnMenu;
-            @Menu.performed += instance.OnMenu;
-            @Menu.canceled += instance.OnMenu;
+            @SkillSelect.started += instance.OnSkillSelect;
+            @SkillSelect.performed += instance.OnSkillSelect;
+            @SkillSelect.canceled += instance.OnSkillSelect;
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
@@ -294,9 +294,9 @@ public partial class @ControlesPlayer: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
-            @Menu.started -= instance.OnMenu;
-            @Menu.performed -= instance.OnMenu;
-            @Menu.canceled -= instance.OnMenu;
+            @SkillSelect.started -= instance.OnSkillSelect;
+            @SkillSelect.performed -= instance.OnSkillSelect;
+            @SkillSelect.canceled -= instance.OnSkillSelect;
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
@@ -320,7 +320,7 @@ public partial class @ControlesPlayer: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
-        void OnMenu(InputAction.CallbackContext context);
+        void OnSkillSelect(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
     }
 }
