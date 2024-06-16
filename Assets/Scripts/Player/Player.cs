@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
 
     bool shouldMove;
     bool shouldJump;
+    bool haveJumped;
     Vector2 myMovementVector;
     float timeStamp;
     Rigidbody2D rb;
@@ -76,6 +77,11 @@ public class Player : MonoBehaviour
             {
                 shouldMove = true;
             }
+            if (haveJumped)
+            {
+                haveJumped = false;
+                rb.velocity = Vector2.zero;
+            }
             return true;
         }
 
@@ -91,9 +97,9 @@ public class Player : MonoBehaviour
             jumpDirection.Normalize();
             rb.velocity = Vector2.zero;
             rb.AddForce(jumpDirection * jumpForce, ForceMode2D.Impulse);
+            haveJumped = true;
         }
 
-        //when landed set vector2 = 0;
     }
 
     public void SetSelectedSkill(ESkills aSkill)
