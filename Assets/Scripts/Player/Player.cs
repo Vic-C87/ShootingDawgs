@@ -20,11 +20,16 @@ public class Player : MonoBehaviour
     bool shouldMove;
     bool shouldJump;
     bool haveJumped;
+    bool skillsMenuIsOpen;
     Vector2 myMovementVector;
     float timeStamp;
     Rigidbody2D rb;
 
     ESkills mySelectedSkill;
+
+    Vector2 myClickedPosition;
+
+    [SerializeField] GameObject[] mySummonPrefabs;
     
     void Awake () 
     { 
@@ -107,6 +112,11 @@ public class Player : MonoBehaviour
         mySelectedSkill = aSkill;
     }
 
+    void Summon()
+    {
+        
+    }
+
 #region Input
     public void OnMovement(InputAction.CallbackContext aCallbackContext)
     {
@@ -136,12 +146,14 @@ public class Player : MonoBehaviour
         {
             mySkillSelect.gameObject.SetActive(true);
             Time.timeScale = mySlowDownSpeed;
+            skillsMenuIsOpen = true;
         }
 
         if (aCallbackContext.phase == InputActionPhase.Canceled)
         {
             mySkillSelect.gameObject.SetActive(false);
             Time.timeScale = 1f;
+            skillsMenuIsOpen = false;
         }
     }
 
@@ -164,6 +176,21 @@ public class Player : MonoBehaviour
                 jumpForce = smallJump;
             }
             shouldJump = true;            
+        }
+    }
+
+    public void OnSummon(InputAction.CallbackContext aCallbackContext)
+    {
+        if (!skillsMenuIsOpen)
+        {
+            if (aCallbackContext.phase == InputActionPhase.Canceled)
+            {
+                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                //Check that 'mousePosition' is a valid summoning location
+                //Instantiate selected summon
+                //Set cooldown or remove resource cost for player
+            }
         }
     }
 #endregion

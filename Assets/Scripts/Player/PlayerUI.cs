@@ -110,41 +110,6 @@ public class PlayerUI : MonoBehaviour
                     myCursorLocation = ECursorLocation.Left;
                 }
             }
-
-
-            //if (viewPortPosition.y > 0 && y >= x)
-            //{
-            //    myImage.sprite = mySkillSpritePrefabs[1];
-            //    if (Input.GetMouseButtonDown(0)) 
-            //    {
-            //        mySpriteFrame = mySkillSpritePrefabs[1];
-            //    }
-            //}
-            //else if (viewPortPosition.x > 0 && x > y)
-            //{
-            //    myImage.sprite = mySkillSpritePrefabs[2];
-            //    if (Input.GetMouseButtonDown(0))
-            //    {
-            //        mySpriteFrame = mySkillSpritePrefabs[2];
-            //    }
-            //}
-            //else if (viewPortPosition.y < 0 && y >= x)
-            //{
-            //    myImage.sprite = mySkillSpritePrefabs[3];
-            //    if (Input.GetMouseButtonDown(0))
-            //    {
-            //        mySpriteFrame = mySkillSpritePrefabs[3];
-            //    }
-            //}     
-            //else
-            //{
-            //    myImage.sprite = mySkillSpritePrefabs[4];
-            //    if (Input.GetMouseButtonDown(0))
-            //    {
-            //        mySpriteFrame = mySkillSpritePrefabs[4];
-            //    }
-            //}
-
         }
         else
         {
