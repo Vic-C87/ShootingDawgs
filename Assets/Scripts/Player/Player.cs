@@ -13,10 +13,13 @@ public class Player : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float jumpUpValue;
     [SerializeField] float jumpSideValue;
-    [SerializeField] float distanceToGround;
     [SerializeField, Range(0,1)] float mySlowDownSpeed;
     [SerializeField] PlayerUI mySkillSelect;
+    [SerializeField] Vector2 boxSize;
+    [SerializeField] float castDistance;
+    [SerializeField] LayerMask groundLayer;
 
+    bool isFacingRight;
     bool shouldMove;
     bool shouldJump;
     bool haveJumped;
@@ -46,16 +49,27 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (myMovementVector.x > 0)
+        if (myMovementVector.x > 0 && isFacingRight)
         {
             jumpSideValue = Mathf.Abs(jumpSideValue);
-            //Set sprite direction (scale * -1)
+            Flip();
         }
-        if (myMovementVector.x < 0)
+        if (myMovementVector.x < 0 && !isFacingRight)
         {
             jumpSideValue = Mathf.Abs(jumpSideValue) * -1;
+            Flip();
         }
     }
+
+    void Flip()
+    {
+        Vector2 currentScale = gameObject.transform.localScale;
+        currentScale.x *= -1;
+        gameObject.transform.localScale = currentScale;
+
+        isFacingRight = !isFacingRight;
+    }
+
 
     private void FixedUpdate()
     {
@@ -74,9 +88,7 @@ public class Player : MonoBehaviour
 
     bool IsOnGround()
     {
-        Vector2 leftSideRay = new Vector2(transform.position.x - 0.5f, transform.position.y - 0.5f);
-        Vector2 rightSideRay = new Vector2(transform.position.x + 0.5f, transform.position.y - 0.5f);
-        if (Physics2D.Raycast(leftSideRay, Vector2.down, distanceToGround) || Physics2D.Raycast(rightSideRay, Vector2.down, distanceToGround))
+        if (Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, castDistance, groundLayer))
         {
             if (myMovementVector != Vector2.zero)
             {
@@ -89,8 +101,12 @@ public class Player : MonoBehaviour
             }
             return true;
         }
-
         return false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position-transform.up * castDistance, boxSize);
     }
 
     void Jump()
@@ -102,7 +118,6 @@ public class Player : MonoBehaviour
             jumpDirection.Normalize();
             rb.velocity = Vector2.zero;
             rb.AddForce(jumpDirection * jumpForce, ForceMode2D.Impulse);
-            haveJumped = true;
         }
 
     }

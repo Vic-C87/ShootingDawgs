@@ -5,8 +5,9 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] List<GameObject> spawnPoints = new List<GameObject>();
-    [SerializeField] GameObject activeSpawnPoint;
     [SerializeField] Player player;
+
+    public GameObject activeSpawnPoint;
 
     private void Awake()
     {
