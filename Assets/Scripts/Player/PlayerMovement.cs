@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     ESkills mySelectedSkill;
     Rigidbody2D myRigidbody;
     Vector2 myMovementVector;
-    Vector2 myJumpingDirection;
+    [SerializeField] Vector2 myJumpingDirection;
     
     bool myIsGrounded;
     bool myShouldJump;
@@ -47,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        myJumpingDirection = new Vector2 (0.5f, 0.5f);
         myJumpingDirection.Normalize();
         mySkillSelectMenu.gameObject.SetActive(false);
     }
