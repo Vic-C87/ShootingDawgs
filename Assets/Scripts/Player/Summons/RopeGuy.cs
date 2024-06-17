@@ -10,19 +10,31 @@ public class RopeGuy : MonoBehaviour
 
     [SerializeField] float myMaxLength;
     [SerializeField] float myRopeSpeed;
+    float myLifeTime;
+    float myTimeStamp;
+
+    Vector3 myStartingLocalPosition;
+    List<GameObject> myRopeList;
 
     PlayerMovement myPlayer;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        myRopeList = new List<GameObject>();
     }
 
-    // Update is called once per frame
+    void Start()
+    {
+        myStartingLocalPosition = myRopeSpawnPoint.transform.localPosition;
+    }
+
     void Update()
     {
         MoveRopeDown();
+        if (Time.time - myTimeStamp > myLifeTime) 
+        {
+            DeSpawn();
+        }
     }
 
     void MoveRopeDown()
@@ -35,7 +47,8 @@ public class RopeGuy : MonoBehaviour
 
     public void SpawnNewRopePiece()
     {
-        Instantiate<GameObject>(myRopePrefab, myRopeSpawnPoint.position, Quaternion.identity, myRopeBottom.transform);
+        GameObject rope = Instantiate<GameObject>(myRopePrefab, myRopeSpawnPoint.position, Quaternion.identity, myRopeBottom.transform);
+        myRopeList.Add(rope);
     }
 
     public void SetPlayer(PlayerMovement aPlayer)
@@ -43,8 +56,25 @@ public class RopeGuy : MonoBehaviour
         myPlayer = aPlayer;
     }
 
-    private void OnDestroy()
+    public void SetLifeTime(float aLifeTime)
     {
-        myPlayer.StopClimb();
+        if (myRopeList.Count > 0) 
+        {
+            myRopeBottom.transform.localPosition = myStartingLocalPosition;
+            for (int i = 0; i < myRopeList.Count; i++)
+            {
+                Destroy(myRopeList[i]);
+            }
+        }
+        myLifeTime = aLifeTime;
+        myTimeStamp = Time.time;
+    }
+
+    public void DeSpawn()
+    {
+        myPlayer.SpawnSmoke(transform.position, 1f);
+        myPlayer.StopClimb();       
+        gameObject.SetActive(false);
+
     }
 }

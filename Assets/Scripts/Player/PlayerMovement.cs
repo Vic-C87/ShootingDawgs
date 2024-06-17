@@ -16,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
     bool myIsFacingRight;
     bool mySkillsMenuIsOpen;
     bool myIsClimbing;
+    bool myAnvilActive;
+
+    int myRopeGuyCurrentSpawnIndex;
 
     float myJumpButtonPressedTimeStamp;
     float myJumpForce;
@@ -38,22 +41,45 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Range(0, 1)] float mySlowDownTimeValue; 
     [SerializeField] LayerMask myGroundLayerMask;
     [SerializeField] PlayerUI mySkillSelectMenu;
+    [SerializeField] int myPreLoadedRopeGuyAmount;
 
     [SerializeField] List<GameObject> mySummons;
 
-    
+    [SerializeField] GameObject mySummonsParent;
+
+    Dictionary<ESummons, GameObject> myPreLoadedSummons;
+
+    List<RopeGuy> myPreLoadedRopeGuys;
 
     void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         myIsGrounded = false;
         myIsFacingRight = true;
+        myPreLoadedSummons = new Dictionary<ESummons, GameObject>();
+        myPreLoadedRopeGuys = new List<RopeGuy>();
+        myRopeGuyCurrentSpawnIndex = 0;
     }
 
     void Start()
     {
         myJumpingDirection.Normalize();
         mySkillSelectMenu.gameObject.SetActive(false);
+        for (int i = 1; i < mySummons.Count; i++)
+        {
+            GameObject summon = Instantiate(mySummons[i], mySummonsParent.transform);
+            summon.SetActive(false);
+            myPreLoadedSummons.Add((ESummons)i, summon);
+        }
+        myPreLoadedSummons[ESummons.Anvil].transform.parent = transform;
+        for (int i = 0; i < myPreLoadedRopeGuyAmount; i++)
+        {
+            GameObject summon = Instantiate(mySummons[0], mySummonsParent.transform);
+            RopeGuy guy = summon.GetComponent<RopeGuy>();
+            guy.SetPlayer(this);
+            summon.SetActive(false);
+            myPreLoadedRopeGuys.Add(guy);
+        }
     }
 
     void Update()
@@ -88,6 +114,12 @@ public class PlayerMovement : MonoBehaviour
                 myRigidbody.velocity = Vector2.zero;
                 myHaveJumped = false;
                 myIsClimbing = false;
+            }
+            if (myAnvilActive)
+            {
+                myPreLoadedSummons[ESummons.Anvil].SetActive(false);
+                SpawnSmoke(transform.position + Vector3.down * myAnvilOffSet, 1f);
+                myAnvilActive = false;
             }
         }
         else
@@ -162,14 +194,39 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void SpawnSmoke(Vector3 aPosition, float aDuration)
+    {
+
+    }
+
+    void ActivateRopeGuy(Vector2 aPosition)
+    {
+        myPreLoadedRopeGuys[myRopeGuyCurrentSpawnIndex].gameObject.SetActive(true);
+        myPreLoadedRopeGuys[myRopeGuyCurrentSpawnIndex].transform.position = aPosition;
+        SpawnSmoke(aPosition, 1f);
+        myPreLoadedRopeGuys[myRopeGuyCurrentSpawnIndex].SetLifeTime(myRopeGuyLifeTime);
+
+        myRopeGuyCurrentSpawnIndex++;
+        if (myRopeGuyCurrentSpawnIndex >= myPreLoadedRopeGuys.Count)
+        {
+            myRopeGuyCurrentSpawnIndex = 0;
+        }
+    }
+
     void ActivateAnvil()
     {
+        myPreLoadedSummons[ESummons.Anvil].SetActive(true);
+        myPreLoadedSummons[ESummons.Anvil].transform.position = transform.position + Vector3.down * myAnvilOffSet;
+        SpawnSmoke(transform.position + Vector3.down * myAnvilOffSet, 1f);
         myRigidbody.velocity = Vector2.zero;
         myRigidbody.AddForce(Vector2.down * myAnvilPullDownForce, ForceMode2D.Impulse);
+        myAnvilActive = true;
     }
 
     void ActivatePowerPunch(float aDirection)
     {
+        myPreLoadedSummons[ESummons.Puncher].SetActive(true);
+        myPreLoadedSummons[ESummons.Puncher].transform.position = transform.position + (transform.right * myPuncherOffSet * aDirection);
         Vector2 direction = new Vector2(.5f, .5f);
         direction.Normalize();
         direction.x *= -aDirection;
@@ -179,11 +236,6 @@ public class PlayerMovement : MonoBehaviour
     public void SetSelectedSkill(ESkills aSelectedSkill)
     {
         mySelectedSkill = aSelectedSkill;
-    }
-
-    public void TriggerCameraDeadZone()
-    {
-
     }
 
 #region Input
@@ -245,30 +297,23 @@ public class PlayerMovement : MonoBehaviour
                     case ESkills.None:
                         break;
                     case ESkills.Rope:
-                        summon = Instantiate<GameObject>(mySummons[0], mousePosition, Quaternion.identity);
-                        summon.GetComponent<RopeGuy>().SetPlayer(this);
-                        Destroy(summon, myRopeGuyLifeTime);
+                        ActivateRopeGuy(mousePosition);
                         break;
                     case ESkills.Float:
                         summon = Instantiate<GameObject>(mySummons[1], mousePosition, Quaternion.identity);
                         Destroy(summon, 5f);//FIX!!!
                         break;
                     case ESkills.Anvil:
-                        summon = Instantiate<GameObject>(mySummons[2], transform.position + (Vector3.down * myAnvilOffSet), Quaternion.identity, transform);
                         ActivateAnvil();
-                        Destroy(summon, 5f);//FIX!!!
                         break;                  
                     case ESkills.PowerPunch:
                         float facingDirection = myIsFacingRight ? -1 : 1;
-                        summon = Instantiate<GameObject>(mySummons[3], transform.position + (transform.right * myPuncherOffSet * facingDirection), Quaternion.identity);
                         ActivatePowerPunch(facingDirection);
-                        Destroy(summon, myPuncherLifeTime);//FIX!!!
+                        //Despawn time, flip puncher sprite
                         break;
                     default:
                         break;
                 }
-
-
             }
         }
     }

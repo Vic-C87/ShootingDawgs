@@ -12,7 +12,7 @@ public class Checkpoint : MonoBehaviour
             LevelManager.Instance.activeSpawnPoint = this.gameObject;
             if (id == 7)
             {
-                other.GetComponent<PlayerMovement>().TriggerCameraDeadZone();
+                //other.GetComponent<PlayerMovement>().TriggerCameraDeadZone();
             }
         }
     }
