@@ -56,9 +56,18 @@ MonoBehaviour:
   speed: 5
   jumpUpValue: 1
   jumpSideValue: 0.5
-  distanceToGround: 0.1
   mySlowDownSpeed: 0.206
   mySkillSelect: {fileID: 0}
+  boxSize: {x: 0, y: 0}
+  castDistance: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  mySummons:
+  - {fileID: 706268869335291555, guid: a0624d37cee46c34da5f9af555960cbd, type: 3}
+  - {fileID: 2973014013169955020, guid: 0a0197185ec09a14985d3268e558028e, type: 3}
+  - {fileID: 2973014013169955020, guid: 0a0197185ec09a14985d3268e558028e, type: 3}
+  - {fileID: 2973014013169955020, guid: 0a0197185ec09a14985d3268e558028e, type: 3}
 --- !u!114 &4792878005962449255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,6 +141,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 30347c73-db4c-41b5-8b5d-6e8e0c74e5f6
     m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4277854854765832807}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnSummon
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8cbfdb2f-0631-4968-8c9b-dcd0aa503cb7
+    m_ActionName: Player/Summon[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

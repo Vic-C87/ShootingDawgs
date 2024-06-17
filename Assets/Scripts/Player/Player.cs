@@ -15,8 +15,6 @@ public class Player : MonoBehaviour
     [SerializeField] float jumpSideValue;
     [SerializeField, Range(0,1)] float mySlowDownSpeed;
     [SerializeField] PlayerUI mySkillSelect;
-    [SerializeField] Vector2 boxSize;
-    [SerializeField] float castDistance;
     [SerializeField] LayerMask groundLayer;
 
     bool isFacingRight;
@@ -26,6 +24,7 @@ public class Player : MonoBehaviour
     bool skillsMenuIsOpen;
     Vector2 myMovementVector;
     float timeStamp;
+    float distanceToGround = 0.1f;
     Rigidbody2D rb;
 
     ESkills mySelectedSkill;
@@ -61,20 +60,18 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Flip()
+    private void FixedUpdate()
+    {
+        Movement();
+        Jump();
+    }
+void Flip()
     {
         Vector2 currentScale = gameObject.transform.localScale;
         currentScale.x *= -1;
         gameObject.transform.localScale = currentScale;
 
         isFacingRight = !isFacingRight;
-    }
-
-
-    private void FixedUpdate()
-    {
-        Movement();
-        Jump();
     }
 
     void Movement()
@@ -88,7 +85,9 @@ public class Player : MonoBehaviour
 
     bool IsOnGround()
     {
-        if (Physics2D.BoxCast(transform.position, boxSize, 0, -transform.up, castDistance, groundLayer))
+        Vector2 leftSideRay = new Vector2(transform.position.x - 0.5f, transform.position.y - 0.5f);
+        Vector2 rightSideRay = new Vector2(transform.position.x + 0.5f, transform.position.y - 0.5f);
+        if (Physics2D.Raycast(leftSideRay, Vector2.down, distanceToGround, groundLayer) || Physics2D.Raycast(rightSideRay, Vector2.down, distanceToGround, groundLayer))
         {
             if (myMovementVector != Vector2.zero)
             {
@@ -101,12 +100,8 @@ public class Player : MonoBehaviour
             }
             return true;
         }
-        return false;
-    }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireCube(transform.position-transform.up * castDistance, boxSize);
+        return false;
     }
 
     void Jump()
@@ -118,6 +113,10 @@ public class Player : MonoBehaviour
             jumpDirection.Normalize();
             rb.velocity = Vector2.zero;
             rb.AddForce(jumpDirection * jumpForce, ForceMode2D.Impulse);
+        }
+        else
+        {
+            jumpForce = 0;
         }
 
     }
@@ -190,6 +189,7 @@ public class Player : MonoBehaviour
             {
                 jumpForce = smallJump;
             }
+
             shouldJump = true;            
         }
     }
@@ -212,7 +212,7 @@ public class Player : MonoBehaviour
                         break;
                     case ESkills.Rope: 
                         summon = Instantiate<GameObject>(mySummons[0], mousePosition, Quaternion.identity);
-                        Destroy(summon, 5f);//FIX!!!
+                        Destroy(summon, 10f);//FIX!!!
                         break;
                     case ESkills.Anvil:
                         summon = Instantiate<GameObject>(mySummons[1], transform.position + Vector3.down, Quaternion.identity, transform);
