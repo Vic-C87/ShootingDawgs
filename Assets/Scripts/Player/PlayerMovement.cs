@@ -131,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (Mathf.Abs(transform.position.x - myXPositionWhenStartedClimb) > 1f)
+        if (Mathf.Abs(transform.position.x - myXPositionWhenStartedClimb) > 1f) //Fixa!!! Logga y pos och längd och gör check för de här
         {
             StopClimb();
         }
@@ -285,7 +285,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void OnSummon(InputAction.CallbackContext aCallbackContext)
-    { //Poola GameObjects: Ta bort Anvil n'r landar: lägg in smoke
+    {
         if (!mySkillsMenuIsOpen)
         {
             if (aCallbackContext.phase == InputActionPhase.Canceled)
@@ -300,7 +300,7 @@ public class PlayerMovement : MonoBehaviour
                         ActivateRopeGuy(mousePosition);
                         break;
                     case ESkills.Float:
-                        summon = Instantiate<GameObject>(mySummons[1], mousePosition, Quaternion.identity);
+                        summon = Instantiate<GameObject>(mySummons[1], mousePosition, Quaternion.identity);//FIX!!!
                         Destroy(summon, 5f);//FIX!!!
                         break;
                     case ESkills.Anvil:
