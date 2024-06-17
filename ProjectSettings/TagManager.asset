@@ -6,7 +6,8 @@ TagManager:
   tags:
   - RopeBottom
   - Rope
-  - Checkpoint
+  - Spawnpoint
+  - Endpoint
   layers:
   - Default
   - TransparentFX
