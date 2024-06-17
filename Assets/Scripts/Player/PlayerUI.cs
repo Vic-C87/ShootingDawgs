@@ -11,7 +11,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] Image myImage;
     [SerializeField] Image myImageSelected;
 
-    [SerializeField] Player myPlayer;
+    [SerializeField] PlayerMovement myPlayer;
     ECursorLocation myCursorLocation;
     ESkills mySelectedSkill;
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] List<GameObject> spawnPoints = new List<GameObject>();
-    [SerializeField] Player player;
+    [SerializeField] PlayerMovement player;
 
     public GameObject activeSpawnPoint;
 

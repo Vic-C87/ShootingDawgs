@@ -428,4 +428,4 @@ MonoBehaviour:
   mySpriteFrame: {fileID: 21300000, guid: 6989047420daed94b9d98501e8119229, type: 3}
   myImage: {fileID: 1078452564245984914}
   myImageSelected: {fileID: 5005381535561141238}
-  myPlayer: {fileID: 0}
+  myPlayer: {fileID: 4537303250019824108, guid: 46ae148363fda5e42a971cda193985a8, type: 3}

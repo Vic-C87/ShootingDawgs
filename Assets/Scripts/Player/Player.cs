@@ -72,9 +72,9 @@ public class Player : MonoBehaviour
     }
 void Flip()
     {
-        Vector2 currentScale = gameObject.transform.localScale;
+        Vector2 currentScale = transform.localScale;
         currentScale.x *= -1;
-        gameObject.transform.localScale = currentScale;
+        transform.localScale = currentScale;
 
         isFacingRight = !isFacingRight;
     }

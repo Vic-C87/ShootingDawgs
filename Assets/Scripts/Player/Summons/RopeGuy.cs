@@ -11,6 +11,8 @@ public class RopeGuy : MonoBehaviour
     [SerializeField] float myMaxLength;
     [SerializeField] float myRopeSpeed;
 
+    PlayerMovement myPlayer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,11 +31,20 @@ public class RopeGuy : MonoBehaviour
         {
             myRopeBottom.transform.position += Vector3.down * myRopeSpeed * Time.deltaTime;
         }
-        //if rope is not longer then myLenght, move rope down
     }
 
     public void SpawnNewRopePiece()
     {
-        GameObject ropePiece = Instantiate<GameObject>(myRopePrefab, myRopeSpawnPoint.position, Quaternion.identity, myRopeBottom.transform);
+        Instantiate<GameObject>(myRopePrefab, myRopeSpawnPoint.position, Quaternion.identity, myRopeBottom.transform);
+    }
+
+    public void SetPlayer(PlayerMovement aPlayer)
+    {
+        myPlayer = aPlayer;
+    }
+
+    private void OnDestroy()
+    {
+        myPlayer.StopClimb();
     }
 }
