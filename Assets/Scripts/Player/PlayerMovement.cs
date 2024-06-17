@@ -28,6 +28,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float myLongJumpHoldTreshold;
     [SerializeField] float myPowerPunchForce;
     [SerializeField] float myAnvilPullDownForce;
+    [SerializeField] float myAnvilOffSet;
+    [SerializeField] float myPuncherOffSet;
+    [SerializeField] float myPuncherLifeTime;
 
     [SerializeField] float mySpeed;
     [SerializeField] float myShortJumpForce;
@@ -37,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] PlayerUI mySkillSelectMenu;
 
     [SerializeField] List<GameObject> mySummons;
+
+    
 
     void Awake()
     {
@@ -176,6 +181,11 @@ public class PlayerMovement : MonoBehaviour
         mySelectedSkill = aSelectedSkill;
     }
 
+    public void TriggerCameraDeadZone()
+    {
+
+    }
+
 #region Input
 
     public void OnMovement(InputAction.CallbackContext aCallbackContext)
@@ -223,7 +233,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void OnSummon(InputAction.CallbackContext aCallbackContext)
-    {
+    { //Poola GameObjects: Ta bort Anvil n'r landar: lägg in smoke
         if (!mySkillsMenuIsOpen)
         {
             if (aCallbackContext.phase == InputActionPhase.Canceled)
@@ -244,15 +254,15 @@ public class PlayerMovement : MonoBehaviour
                         Destroy(summon, 5f);//FIX!!!
                         break;
                     case ESkills.Anvil:
-                        summon = Instantiate<GameObject>(mySummons[2], transform.position + Vector3.down/2, Quaternion.identity, transform);
+                        summon = Instantiate<GameObject>(mySummons[2], transform.position + (Vector3.down * myAnvilOffSet), Quaternion.identity, transform);
                         ActivateAnvil();
                         Destroy(summon, 5f);//FIX!!!
                         break;                  
                     case ESkills.PowerPunch:
                         float facingDirection = myIsFacingRight ? -1 : 1;
-                        summon = Instantiate<GameObject>(mySummons[3], transform.position + transform.right/2 * facingDirection, Quaternion.identity, transform);
+                        summon = Instantiate<GameObject>(mySummons[3], transform.position + (transform.right * myPuncherOffSet * facingDirection), Quaternion.identity);
                         ActivatePowerPunch(facingDirection);
-                        Destroy(summon, 5f);//FIX!!!
+                        Destroy(summon, myPuncherLifeTime);//FIX!!!
                         break;
                     default:
                         break;
@@ -266,7 +276,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Rope") && !myIsClimbing) 
+        if (!myIsClimbing && collision.CompareTag("Rope")) 
         {
             myIsClimbing = true;
             myRigidbody.gravityScale = 0f;
