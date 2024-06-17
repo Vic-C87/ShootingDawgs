@@ -6,5 +6,7 @@ public enum ESkills
 {
     None,
     Rope,
-    Anvil
+    Anvil,
+    Float,
+    PowerPunch
 }

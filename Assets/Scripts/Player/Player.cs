@@ -186,8 +186,8 @@ public class Player : MonoBehaviour
             if (aCallbackContext.phase == InputActionPhase.Canceled)
             {
                 Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-                //'switch' on 'ESkills'
+                GameObject summon;
+                //'switch' on 'mySelectedSkill'
                 //Check that 'mousePosition' is a valid summoning location
                 //Instantiate selected summon
                 //Set cooldown or remove resource cost for player
@@ -196,8 +196,23 @@ public class Player : MonoBehaviour
                     case ESkills.None:
                         break;
                     case ESkills.Rope: 
-                        GameObject summon = Instantiate<GameObject>(mySummons[0], mousePosition, Quaternion.identity);
-                        Destroy(summon, 5f);
+                        summon = Instantiate<GameObject>(mySummons[0], mousePosition, Quaternion.identity);
+                        Destroy(summon, 5f);//FIX!!!
+                        break;
+                    case ESkills.Anvil:
+                        summon = Instantiate<GameObject>(mySummons[1], transform.position + Vector3.down, Quaternion.identity, transform);
+                        ActivateAnvil();
+                        Destroy(summon, 5f);//FIX!!!
+                        break;
+                    case ESkills.Float:
+                        summon = Instantiate<GameObject>(mySummons[2], mousePosition, Quaternion.identity);
+                        Destroy(summon, 5f);//FIX!!!
+                        break;
+                    case ESkills.PowerPunch:
+                        float facingDirection = jumpSideValue > 0 ? -1 : 1;
+                        summon = Instantiate<GameObject>(mySummons[3], transform.position + transform.right * facingDirection, Quaternion.identity, transform);
+                        ActivatePowerPunch(facingDirection);
+                        Destroy(summon, 5f);//FIX!!!
                         break;
                     default:
                         break;
@@ -208,4 +223,28 @@ public class Player : MonoBehaviour
         }
     }
 #endregion
+
+    void ActivateAnvil()
+    {
+        rb.velocity = Vector2.zero;
+        rb.AddForce(Vector2.down * 10, ForceMode2D.Impulse);
+    }
+
+    void ActivatePowerPunch(float aDirection)
+    {
+        Vector2 direction = new Vector2(.5f, .5f);
+        direction.Normalize();
+        direction.x *= -aDirection;
+        rb.AddForce(direction * 10, ForceMode2D.Impulse);
+    }
+
+    void ActivateRope()
+    {
+
+    }
+
+    void ActivateBats()
+    {
+
+    }
 }

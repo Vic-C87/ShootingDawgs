@@ -48,19 +48,19 @@ public class PlayerUI : MonoBehaviour
                 break;
             case ECursorLocation.Top:
                 mySpriteFrame = mySkillSpritePrefabs[1];
-                mySelectedSkill = ESkills.None;
+                mySelectedSkill = ESkills.Rope;
                 break;
             case ECursorLocation.Right:
                 mySpriteFrame = mySkillSpritePrefabs[2];
-                mySelectedSkill = ESkills.None;
+                mySelectedSkill = ESkills.Float;
                 break;
             case ECursorLocation.Bottom:
                 mySpriteFrame = mySkillSpritePrefabs[3];
-                mySelectedSkill = ESkills.None;
+                mySelectedSkill = ESkills.Anvil;
                 break;
             case ECursorLocation.Left:
                 mySpriteFrame = mySkillSpritePrefabs[4];
-                mySelectedSkill = ESkills.None;
+                mySelectedSkill = ESkills.PowerPunch;
                 break;
             default:
                 mySpriteFrame = mySkillSpritePrefabs[0];

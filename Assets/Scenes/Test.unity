@@ -1337,10 +1337,22 @@ PrefabInstance:
       objectReference: {fileID: 1770131336}
     - target: {fileID: 4277854854765832807, guid: 46ae148363fda5e42a971cda193985a8, type: 3}
       propertyPath: mySummons.Array.size
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4277854854765832807, guid: 46ae148363fda5e42a971cda193985a8, type: 3}
       propertyPath: mySummons.Array.data[0]
+      value: 
+      objectReference: {fileID: 2973014013169955020, guid: 0a0197185ec09a14985d3268e558028e, type: 3}
+    - target: {fileID: 4277854854765832807, guid: 46ae148363fda5e42a971cda193985a8, type: 3}
+      propertyPath: mySummons.Array.data[1]
+      value: 
+      objectReference: {fileID: 2973014013169955020, guid: 0a0197185ec09a14985d3268e558028e, type: 3}
+    - target: {fileID: 4277854854765832807, guid: 46ae148363fda5e42a971cda193985a8, type: 3}
+      propertyPath: mySummons.Array.data[2]
+      value: 
+      objectReference: {fileID: 2973014013169955020, guid: 0a0197185ec09a14985d3268e558028e, type: 3}
+    - target: {fileID: 4277854854765832807, guid: 46ae148363fda5e42a971cda193985a8, type: 3}
+      propertyPath: mySummons.Array.data[3]
       value: 
       objectReference: {fileID: 2973014013169955020, guid: 0a0197185ec09a14985d3268e558028e, type: 3}
     - target: {fileID: 4277854854765832807, guid: 46ae148363fda5e42a971cda193985a8, type: 3}
