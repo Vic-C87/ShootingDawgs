@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4842064217674104607}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,26 +48,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8e2d78ee61ff0f428eab8053af2fff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myJumpingDirection: {x: 1.25, y: 2}
   myRopeGuyLifeTime: 10
-  myHalfWidth: 0.5
+  myHalfWidth: 0.6
   myHalfHeight: 0.3
-  myGroundDistanceCheck: 0.01
-  myLongJumpHoldTreshold: 0.5
+  myGroundDistanceCheck: 0.05
+  myLongJumpHoldTreshold: 0.25
   myPowerPunchForce: 10
   myAnvilPullDownForce: 10
+  myAnvilOffSet: 0.8
+  myPuncherOffSet: 1
+  myPuncherLifeTime: 3
   mySpeed: 5
-  myShortJumpForce: 4
+  myShortJumpForce: 5
   myLongJumpForce: 7
   mySlowDownTimeValue: 0.2
   myGroundLayerMask:
     serializedVersion: 2
     m_Bits: 64
   mySkillSelectMenu: {fileID: 0}
+  myPreLoadedRopeGuyAmount: 4
   mySummons:
   - {fileID: 706268869335291555, guid: a0624d37cee46c34da5f9af555960cbd, type: 3}
   - {fileID: 2973014013169955020, guid: 0a0197185ec09a14985d3268e558028e, type: 3}
-  - {fileID: 2973014013169955020, guid: 0a0197185ec09a14985d3268e558028e, type: 3}
-  - {fileID: 2973014013169955020, guid: 0a0197185ec09a14985d3268e558028e, type: 3}
+  - {fileID: 385687140914634582, guid: 052f639113715cb48ad9eb92e0b6a819, type: 3}
+  - {fileID: 832714290784917602, guid: 5ba4b443383debc4eabd867ef98b6569, type: 3}
+  mySummonsParent: {fileID: 0}
 --- !u!114 &6400316045354632042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,7 +200,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.21133333}
+  m_Offset: {x: 0, y: 0.10472512}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.28866667}
@@ -205,7 +211,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 0.79054976}
   m_EdgeRadius: 0
 --- !u!50 &4842064217674104607
 Rigidbody2D:
@@ -242,6 +248,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2480267181639342706}
     m_Modifications:
+    - target: {fileID: 601575560393334660, guid: 33ca766708266584487ae48103992ba4, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7483211809716769742, guid: 33ca766708266584487ae48103992ba4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
