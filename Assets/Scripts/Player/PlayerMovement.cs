@@ -238,7 +238,7 @@ public class PlayerMovement : MonoBehaviour
                     case ESkills.Rope:
                         summon = Instantiate<GameObject>(mySummons[0], mousePosition, Quaternion.identity);
                         summon.GetComponent<RopeGuy>().SetPlayer(this);
-                        Destroy(summon, myRopeGuyLifeTime);//FIX!!!
+                        Destroy(summon, myRopeGuyLifeTime);
                         break;
                     case ESkills.Float:
                         summon = Instantiate<GameObject>(mySummons[1], mousePosition, Quaternion.identity);
