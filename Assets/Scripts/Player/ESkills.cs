@@ -4,5 +4,7 @@ using UnityEngine;
 
 public enum ESkills
 {
-    None
+    None,
+    Rope,
+    Anvil
 }

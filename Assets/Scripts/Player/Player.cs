@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 
     Vector2 myClickedPosition;
 
-    [SerializeField] GameObject[] mySummonPrefabs;
+    [SerializeField] GameObject[] mySummons;
     
     void Awake () 
     { 
@@ -187,9 +187,23 @@ public class Player : MonoBehaviour
             {
                 Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+                //'switch' on 'ESkills'
                 //Check that 'mousePosition' is a valid summoning location
                 //Instantiate selected summon
                 //Set cooldown or remove resource cost for player
+                switch (mySelectedSkill)
+                {
+                    case ESkills.None:
+                        break;
+                    case ESkills.Rope: 
+                        GameObject summon = Instantiate<GameObject>(mySummons[0], mousePosition, Quaternion.identity);
+                        Destroy(summon, 5f);
+                        break;
+                    default:
+                        break;
+                }
+                
+
             }
         }
     }
