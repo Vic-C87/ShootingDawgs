@@ -10,7 +10,6 @@ public class RopeSpawner : MonoBehaviour
     {
         if (collision.CompareTag("Rope"))
         {
-            Debug.Log("HIT");
             myParent.SpawnNewRopePiece();
         }
     }
