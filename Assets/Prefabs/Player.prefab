@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3413527613456052818}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,11 +58,9 @@ MonoBehaviour:
   jumpSideValue: 0.5
   mySlowDownSpeed: 0.206
   mySkillSelect: {fileID: 0}
-  boxSize: {x: 0, y: 0}
-  castDistance: 0
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   mySummons:
   - {fileID: 706268869335291555, guid: a0624d37cee46c34da5f9af555960cbd, type: 3}
   - {fileID: 2973014013169955020, guid: 0a0197185ec09a14985d3268e558028e, type: 3}

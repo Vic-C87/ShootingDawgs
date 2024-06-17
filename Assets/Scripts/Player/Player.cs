@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] PlayerUI mySkillSelect;
     [SerializeField] LayerMask groundLayer;
 
+    [SerializeField] bool isClimbing;
     bool isFacingRight;
     bool shouldMove;
     bool shouldJump;
@@ -24,7 +25,7 @@ public class Player : MonoBehaviour
     bool skillsMenuIsOpen;
     Vector2 myMovementVector;
     float timeStamp;
-    float distanceToGround = 0.1f;
+    float distanceToGround = 0.01f;
     Rigidbody2D rb;
 
     ESkills mySelectedSkill;
@@ -58,6 +59,10 @@ public class Player : MonoBehaviour
             jumpSideValue = Mathf.Abs(jumpSideValue) * -1;
             Flip();
         }
+        if (isClimbing)
+        {
+        }
+
     }
 
     private void FixedUpdate()
@@ -100,15 +105,16 @@ void Flip()
             }
             return true;
         }
-
         return false;
     }
 
     void Jump()
     {
-        if (shouldJump && IsOnGround()) 
+        if ((shouldJump && IsOnGround()) || (isClimbing && shouldJump)) 
         {
             shouldJump = false;
+            isClimbing = false;
+            rb.gravityScale = 1f;
             Vector2 jumpDirection = new Vector2(jumpSideValue, jumpUpValue);
             jumpDirection.Normalize();
             rb.velocity = Vector2.zero;
@@ -118,17 +124,11 @@ void Flip()
         {
             jumpForce = 0;
         }
-
     }
 
     public void SetSelectedSkill(ESkills aSkill)
     {
         mySelectedSkill = aSkill;
-    }
-
-    void Summon()
-    {
-        
     }
 
 #region Input
@@ -181,6 +181,7 @@ void Flip()
 
         if (aCallbackContext.phase == InputActionPhase.Canceled)
         {
+            
             if (Time.time - timeStamp >= jumpTimeThreshold)
             {
                 jumpForce = largeJump;
@@ -189,7 +190,7 @@ void Flip()
             {
                 jumpForce = smallJump;
             }
-
+            
             shouldJump = true;            
         }
     }
@@ -202,17 +203,13 @@ void Flip()
             {
                 Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 GameObject summon;
-                //'switch' on 'mySelectedSkill'
-                //Check that 'mousePosition' is a valid summoning location
-                //Instantiate selected summon
-                //Set cooldown or remove resource cost for player
                 switch (mySelectedSkill)
                 {
                     case ESkills.None:
                         break;
                     case ESkills.Rope: 
                         summon = Instantiate<GameObject>(mySummons[0], mousePosition, Quaternion.identity);
-                        Destroy(summon, 10f);//FIX!!!
+                        Destroy(summon, 20f);//FIX!!!
                         break;
                     case ESkills.Anvil:
                         summon = Instantiate<GameObject>(mySummons[1], transform.position + Vector3.down, Quaternion.identity, transform);
@@ -261,5 +258,16 @@ void Flip()
     void ActivateBats()
     {
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Rope") && !isClimbing)
+        {
+            rb.velocity = Vector2.zero;
+            isClimbing = true;
+            haveJumped = false;
+            rb.gravityScale = 0f;
+        }
     }
 }
