@@ -77,4 +77,9 @@ public class RopeGuy : MonoBehaviour
         gameObject.SetActive(false);
 
     }
+
+    public float GetRopeLength()
+    {
+        return myMaxLength;
+    }
 }

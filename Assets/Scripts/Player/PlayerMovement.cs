@@ -61,6 +61,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] EPlayerState myState;
     [SerializeField] EPlayerState myPreviousState;
 
+    float myCurrentRopeGuyYPosition;
+    float myCurrentRopeLength;
+
     void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -272,7 +275,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Climb()
     {
-        transform.Translate(myMovementVector * mySpeed / 2 * Time.fixedDeltaTime);
+        if (transform.position.y < myCurrentRopeGuyYPosition && transform.position.y > myCurrentRopeGuyYPosition -myCurrentRopeLength)
+        {
+            transform.Translate(myMovementVector * mySpeed / 2 * Time.fixedDeltaTime);
+            
+        }
     }
 
     void Movement()
@@ -456,6 +463,9 @@ public class PlayerMovement : MonoBehaviour
             myRigidbody.gravityScale = 0f;
             myRigidbody.velocity = Vector2.zero;
             myXPositionWhenStartedClimb = collision.GetComponent<Transform>().position.x;
+            RopeGuy guy = collision.GetComponentInParent<Transform>().GetComponentInParent<RopeGuy>();
+            myCurrentRopeGuyYPosition = guy.transform.position.y;
+            myCurrentRopeLength = guy.GetRopeLength();
         }
     }
 }
