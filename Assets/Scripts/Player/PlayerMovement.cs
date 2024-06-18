@@ -17,13 +17,16 @@ public class PlayerMovement : MonoBehaviour
     bool mySkillsMenuIsOpen;
     bool myIsClimbing;
     bool myAnvilActive;
+    bool myIsMoving;
+    bool myIsFalling;
 
     int myRopeGuyCurrentSpawnIndex;
 
     float myJumpButtonPressedTimeStamp;
     float myJumpForce;
     float myXPositionWhenStartedClimb;
-
+    float myPreviousYPosition;
+    [SerializeField, Range(0,90)] float myJumpAngle;
     [SerializeField] float myRopeGuyLifeTime;
     [SerializeField] float myHalfWidth;
     [SerializeField] float myHalfHeight;
@@ -51,6 +54,10 @@ public class PlayerMovement : MonoBehaviour
 
     List<RopeGuy> myPreLoadedRopeGuys;
 
+    Animator myAnimator;
+    [SerializeField] EPlayerState myState;
+    [SerializeField] EPlayerState myPreviousState;
+
     void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -59,10 +66,13 @@ public class PlayerMovement : MonoBehaviour
         myPreLoadedSummons = new Dictionary<ESummons, GameObject>();
         myPreLoadedRopeGuys = new List<RopeGuy>();
         myRopeGuyCurrentSpawnIndex = 0;
+        myAnimator = GetComponentInChildren<Animator>();
     }
 
     void Start()
     {
+        myPreviousState = EPlayerState.None;
+        myState = EPlayerState.Idle;
         myJumpingDirection.Normalize();
         mySkillSelectMenu.gameObject.SetActive(false);
         for (int i = 1; i < mySummons.Count; i++)
@@ -86,6 +96,8 @@ public class PlayerMovement : MonoBehaviour
     {
         CheckForGround();
         CheckFacingDirection();
+        CheckAirTime();
+        SetAnimator();
     }
 
     private void FixedUpdate()
@@ -101,6 +113,64 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void SetAnimator()
+    {
+        if (myPreviousState != myState)
+        {
+            ResetAnimatorBools();
+            switch (myState)
+            {
+                case EPlayerState.Idle:
+                    myAnimator.SetBool("isIdle", true);                    
+                    break;
+                case EPlayerState.Run:
+                    myAnimator.SetBool("isWalking", true);
+                    break;
+                case EPlayerState.Jump:
+                    myAnimator.SetBool("isJumping", true);
+                    break;
+                case EPlayerState.Fall:
+                    myAnimator.SetBool("isFalling", true);
+                    break;
+                case EPlayerState.Land:
+                    myAnimator.SetBool("isLanding", true); 
+                    break;
+                case EPlayerState.Die:
+                    myAnimator.SetBool("isDead", true);
+                    break;
+                default:
+                    break;
+            }
+            myPreviousState = myState;
+        }
+    }
+
+    void ResetAnimatorBools()
+    {
+        myAnimator.SetBool("isIdle", false);
+        myAnimator.SetBool("isWalking", false);
+        myAnimator.SetBool("isJumping", false);
+        myAnimator.SetBool("isFalling", false);
+        myAnimator.SetBool("isBats", false);
+        myAnimator.SetBool("isDead", false);
+    }
+
+    void CheckAirTime()
+    {
+        if (myHaveJumped)
+        {
+            if (myPreviousYPosition > 0f && transform.position.y < myPreviousYPosition)
+            {
+                SetNewState(EPlayerState.Fall);
+                myIsFalling = true;
+            }
+            else
+            {
+                myPreviousYPosition = transform.position.y;
+            }
+        }
+    }
+
     void CheckForGround()
     {
         Vector2 leftSide = new Vector2(transform.position.x - myHalfWidth, transform.position.y - myHalfHeight);
@@ -111,9 +181,11 @@ public class PlayerMovement : MonoBehaviour
             myIsGrounded = true;
             if (myHaveJumped)
             {
+                SetNewState(EPlayerState.Land);
                 myRigidbody.velocity = Vector2.zero;
                 myHaveJumped = false;
                 myIsClimbing = false;
+                myIsFalling = false;
             }
             if (myAnvilActive)
             {
@@ -121,12 +193,14 @@ public class PlayerMovement : MonoBehaviour
                 SpawnSmoke(transform.position + Vector3.down * myAnvilOffSet, 1f);
                 myAnvilActive = false;
             }
+            myPreviousYPosition = 0f;
         }
         else
         {
             myIsGrounded = false;
             if (!myIsClimbing)
             {
+                SetNewState(EPlayerState.Jump);
                 myHaveJumped = true;
             }
         }
@@ -135,6 +209,12 @@ public class PlayerMovement : MonoBehaviour
         {
             StopClimb();
         }
+    }
+
+    public void SetNewState(EPlayerState aNewState)
+    {
+        myPreviousState = myState;
+        myState = aNewState;
     }
 
     public void StopClimb()
@@ -243,6 +323,17 @@ public class PlayerMovement : MonoBehaviour
     public void OnMovement(InputAction.CallbackContext aCallbackContext)
     {
         myMovementVector = aCallbackContext.ReadValue<Vector2>();
+        if (aCallbackContext.phase == InputActionPhase.Started)
+        {
+            myIsMoving = true;
+            SetNewState(EPlayerState.Run);
+        }
+
+        if (aCallbackContext.phase == InputActionPhase.Canceled)
+        {
+            myIsMoving = false;
+            SetNewState(EPlayerState.Idle);
+        }
     }
 
     public void OnOpenSkillMenu(InputAction.CallbackContext aCallbackContext)
