@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     bool myAnvilActive;
     bool myIsMoving;
     bool myIsFalling;
+    bool myIsDead;
 
     int myRopeGuyCurrentSpawnIndex;
 

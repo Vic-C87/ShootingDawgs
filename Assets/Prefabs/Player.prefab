@@ -49,16 +49,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myJumpingDirection: {x: 1.25, y: 2}
+  myJumpAngle: 0
   myRopeGuyLifeTime: 10
   myHalfWidth: 0.6
   myHalfHeight: 0.3
   myGroundDistanceCheck: 0.05
   myLongJumpHoldTreshold: 0.25
-  myPowerPunchForce: 10
-  myAnvilPullDownForce: 10
+  myPowerPunchForce: 4
+  myAnvilPullDownForce: 0.5
   myAnvilOffSet: 0.8
-  myPuncherOffSet: 1
-  myPuncherLifeTime: 3
+  myPuncherOffSet: 3
+  myPuncherLifeTime: 2
   mySpeed: 5
   myShortJumpForce: 5
   myLongJumpForce: 7
@@ -74,6 +75,8 @@ MonoBehaviour:
   - {fileID: 385687140914634582, guid: 052f639113715cb48ad9eb92e0b6a819, type: 3}
   - {fileID: 832714290784917602, guid: 5ba4b443383debc4eabd867ef98b6569, type: 3}
   mySummonsParent: {fileID: 0}
+  myState: 0
+  myPreviousState: 0
 --- !u!114 &6400316045354632042
 MonoBehaviour:
   m_ObjectHideFlags: 0
