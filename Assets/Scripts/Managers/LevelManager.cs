@@ -27,7 +27,6 @@ public class LevelManager : MonoBehaviour
     {
         if (player.transform.position.y < 0f)
         {
-            player.SetNewState(EPlayerState.Die);
             player.transform.position = activeSpawnPoint.transform.position;
         }
     }
