@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     bool myIsMoving;
     bool myIsFalling;
     bool myIsDead;
+    [SerializeField] bool myIsBats;
 
     int myRopeGuyCurrentSpawnIndex;
 
@@ -38,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float myAnvilOffSet;
     [SerializeField] float myPuncherOffSet;
     [SerializeField] float myPuncherLifeTime;
+    [SerializeField, Range(0,1)] float myGravityWhenBats;
 
     [SerializeField] float mySpeed;
     [SerializeField] float myShortJumpForce;
@@ -136,6 +138,9 @@ public class PlayerMovement : MonoBehaviour
                 case EPlayerState.Land:
                     myAnimator.SetBool("isLanding", true); 
                     break;
+                case EPlayerState.Bats:
+                    myAnimator.SetBool("isBats", true);
+                    break;
                 case EPlayerState.Die:
                     myAnimator.SetBool("isDead", true);
                     break;
@@ -152,13 +157,14 @@ public class PlayerMovement : MonoBehaviour
         myAnimator.SetBool("isWalking", false);
         myAnimator.SetBool("isJumping", false);
         myAnimator.SetBool("isFalling", false);
+        myAnimator.SetBool("isLanding", false);
         myAnimator.SetBool("isBats", false);
         myAnimator.SetBool("isDead", false);
     }
 
     void CheckAirTime()
     {
-        if (myHaveJumped)
+        if (myHaveJumped && !myIsBats)
         {
             if (myPreviousYPosition > 0f && transform.position.y < myPreviousYPosition)
             {
@@ -186,10 +192,17 @@ public class PlayerMovement : MonoBehaviour
                 myRigidbody.velocity = Vector2.zero;
                 myHaveJumped = false;
                 myIsClimbing = false;
-                myIsFalling = false;
+                myIsFalling = false;                
+            }
+            if (myIsBats) 
+            {
+                SetNewState(EPlayerState.Land);
+                myIsBats = false;
+                myRigidbody.gravityScale = 1f;
             }
             if (myAnvilActive)
             {
+                SetNewState(EPlayerState.Land);
                 myPreLoadedSummons[ESummons.Anvil].SetActive(false);
                 SpawnSmoke(transform.position + Vector3.down * myAnvilOffSet, 1f);
                 myAnvilActive = false;
@@ -199,14 +212,14 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             myIsGrounded = false;
-            if (!myIsClimbing)
+            if (!myIsClimbing && !myIsBats)
             {
                 SetNewState(EPlayerState.Jump);
                 myHaveJumped = true;
             }
         }
 
-        if (Mathf.Abs(transform.position.x - myXPositionWhenStartedClimb) > 1f) //Fixa!!! Logga y pos och längd och gör check för de här
+        if (Mathf.Abs(transform.position.x - myXPositionWhenStartedClimb) > 1f && !myIsBats) //Fixa!!! Logga y pos och längd och gör check för de här
         {
             StopClimb();
         }
@@ -220,7 +233,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void StopClimb()
     {
-        myRigidbody.gravityScale = 1f;
+        if (!myIsBats)
+            myRigidbody.gravityScale = 1f;
         myIsClimbing = false;
     }
 
@@ -249,7 +263,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
-        if (myIsGrounded)
+        if (myIsGrounded || myIsBats)
         {
             myMovementVector.y = 0f;
 
@@ -277,7 +291,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void SpawnSmoke(Vector3 aPosition, float aDuration)
     {
-
+        //FIX!
     }
 
     void ActivateRopeGuy(Vector2 aPosition)
@@ -312,6 +326,14 @@ public class PlayerMovement : MonoBehaviour
         direction.Normalize();
         direction.x *= -aDirection;
         myRigidbody.AddForce(direction * myPowerPunchForce, ForceMode2D.Impulse);
+    }
+
+    void ActivateBats()
+    {
+        myIsBats = true;
+        myRigidbody.gravityScale = myGravityWhenBats;
+        myRigidbody.velocity = Vector2.zero;
+        SetNewState(EPlayerState.Bats);
     }
 
     public void SetSelectedSkill(ESkills aSelectedSkill)
@@ -392,8 +414,7 @@ public class PlayerMovement : MonoBehaviour
                         ActivateRopeGuy(mousePosition);
                         break;
                     case ESkills.Float:
-                        summon = Instantiate<GameObject>(mySummons[1], mousePosition, Quaternion.identity);//FIX!!!
-                        Destroy(summon, 5f);//FIX!!!
+                        ActivateBats();
                         break;
                     case ESkills.Anvil:
                         ActivateAnvil();

@@ -10,5 +10,6 @@ public enum EPlayerState
     Jump, 
     Fall,
     Land,
+    Bats,
     Die
 }
