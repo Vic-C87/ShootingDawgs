@@ -49,17 +49,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myJumpingDirection: {x: 1.25, y: 2}
+  myIsBats: 0
   myJumpAngle: 0
-  myRopeGuyLifeTime: 10
+  myRopeGuyLifeTime: 15
   myHalfWidth: 0.6
   myHalfHeight: 0.3
   myGroundDistanceCheck: 0.05
   myLongJumpHoldTreshold: 0.25
-  myPowerPunchForce: 4
+  myPowerPunchForce: 5
   myAnvilPullDownForce: 0.5
   myAnvilOffSet: 0.8
-  myPuncherOffSet: 3
-  myPuncherLifeTime: 2
+  myPuncherOffSet: 1
+  myPuncherLifeTime: 3
+  myGravityWhenBats: 0.4
   mySpeed: 5
   myShortJumpForce: 5
   myLongJumpForce: 7

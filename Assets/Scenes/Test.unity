@@ -670,6 +670,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4537303250019824108, guid: 46ae148363fda5e42a971cda193985a8, type: 3}
+      propertyPath: mySummonsParent
+      value: 
+      objectReference: {fileID: 1478124590306353610}
+    - target: {fileID: 4537303250019824108, guid: 46ae148363fda5e42a971cda193985a8, type: 3}
       propertyPath: myRopeGuyLifeTime
       value: 10
       objectReference: {fileID: 0}
@@ -1390,6 +1394,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 391d19f09b9202640885a80646c7c4ce, type: 3}
+--- !u!1 &1478124590306353610 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2967547306203915821, guid: 391d19f09b9202640885a80646c7c4ce, type: 3}
+  m_PrefabInstance: {fileID: 1478124590306353609}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

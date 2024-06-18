@@ -120,28 +120,41 @@ public class PlayerMovement : MonoBehaviour
     {
         if (myPreviousState != myState)
         {
-            ResetAnimatorBools();
             switch (myState)
             {
                 case EPlayerState.Idle:
+                    myAnimator.SetBool("isBats", false);
+                    myAnimator.SetBool("isDead", false);
+                    myAnimator.SetBool("isLanding", false);
+                    myAnimator.SetBool("isWalking", false);
                     myAnimator.SetBool("isIdle", true);                    
                     break;
                 case EPlayerState.Run:
+                    myAnimator.SetBool("isIdle", false);
                     myAnimator.SetBool("isWalking", true);
                     break;
                 case EPlayerState.Jump:
+                    myAnimator.SetBool("isIdle", false);
+                    myAnimator.SetBool("isWalking", false);
                     myAnimator.SetBool("isJumping", true);
                     break;
                 case EPlayerState.Fall:
+                    myAnimator.SetBool("isBats", false);
+                    myAnimator.SetBool("isJumping", false);
                     myAnimator.SetBool("isFalling", true);
                     break;
                 case EPlayerState.Land:
+                    myAnimator.SetBool("isFalling", false);
+                    myAnimator.SetBool("isBats", false);
                     myAnimator.SetBool("isLanding", true); 
                     break;
                 case EPlayerState.Bats:
+                    myAnimator.SetBool("isJumping", false);
+                    myAnimator.SetBool("isFalling", false);
                     myAnimator.SetBool("isBats", true);
                     break;
                 case EPlayerState.Die:
+                    myAnimator.SetBool("isLanding", false);
                     myAnimator.SetBool("isDead", true);
                     break;
                 default:
@@ -197,6 +210,7 @@ public class PlayerMovement : MonoBehaviour
             if (myIsBats) 
             {
                 SetNewState(EPlayerState.Land);
+                myAnimator.SetBool("isBats", false);
                 myIsBats = false;
                 myRigidbody.gravityScale = 1f;
             }
@@ -214,7 +228,7 @@ public class PlayerMovement : MonoBehaviour
             myIsGrounded = false;
             if (!myIsClimbing && !myIsBats)
             {
-                SetNewState(EPlayerState.Jump);
+                //SetNewState(EPlayerState.Jump);
                 myHaveJumped = true;
             }
         }
@@ -381,6 +395,7 @@ public class PlayerMovement : MonoBehaviour
         if (aCallbackContext.phase == InputActionPhase.Started)
         {
             myJumpButtonPressedTimeStamp = Time.time;
+            
         }
 
         if (aCallbackContext.phase == InputActionPhase.Canceled && myIsGrounded)
@@ -395,6 +410,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             myShouldJump = true;
+            SetNewState(EPlayerState.Jump);
         }
     }
 
@@ -405,7 +421,6 @@ public class PlayerMovement : MonoBehaviour
             if (aCallbackContext.phase == InputActionPhase.Canceled)
             {
                 Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                GameObject summon;
                 switch (mySelectedSkill)
                 {
                     case ESkills.None:
@@ -437,6 +452,7 @@ public class PlayerMovement : MonoBehaviour
         if (!myIsClimbing && collision.CompareTag("Rope")) 
         {
             myIsClimbing = true;
+            myIsBats = false;
             myRigidbody.gravityScale = 0f;
             myRigidbody.velocity = Vector2.zero;
             myXPositionWhenStartedClimb = collision.GetComponent<Transform>().position.x;
