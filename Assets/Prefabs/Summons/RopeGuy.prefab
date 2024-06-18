@@ -50,7 +50,7 @@ MonoBehaviour:
   myRopePrefab: {fileID: 6404335761786053627, guid: de285b623a650234bb4adc7d572cce25, type: 3}
   myRopeSpawnPoint: {fileID: 8345806712713377819}
   myRopeBottom: {fileID: 5405031258259445506}
-  myMaxLength: 4
+  myMaxLength: 3.5
   myRopeSpeed: 1
 --- !u!1 &1377547982490402353
 GameObject:
