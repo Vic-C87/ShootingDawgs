@@ -7,6 +7,7 @@ public enum EPlayerState
     None,
     Idle,
     Run,
+    PrepareJump,
     Jump, 
     Fall,
     Land,

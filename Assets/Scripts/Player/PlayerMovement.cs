@@ -136,9 +136,13 @@ public class PlayerMovement : MonoBehaviour
                     myAnimator.SetBool("isIdle", false);
                     myAnimator.SetBool("isWalking", true);
                     break;
-                case EPlayerState.Jump:
+                case EPlayerState.PrepareJump:
                     myAnimator.SetBool("isIdle", false);
                     myAnimator.SetBool("isWalking", false);
+                    myAnimator.SetBool("isPreparingJump", true);
+                    break;
+                case EPlayerState.Jump:
+                    myAnimator.SetBool("isPreparingJump", false);
                     myAnimator.SetBool("isJumping", true);
                     break;
                 case EPlayerState.Fall:
@@ -165,17 +169,6 @@ public class PlayerMovement : MonoBehaviour
             }
             myPreviousState = myState;
         }
-    }
-
-    void ResetAnimatorBools()
-    {
-        myAnimator.SetBool("isIdle", false);
-        myAnimator.SetBool("isWalking", false);
-        myAnimator.SetBool("isJumping", false);
-        myAnimator.SetBool("isFalling", false);
-        myAnimator.SetBool("isLanding", false);
-        myAnimator.SetBool("isBats", false);
-        myAnimator.SetBool("isDead", false);
     }
 
     void CheckAirTime()
@@ -275,11 +268,18 @@ public class PlayerMovement : MonoBehaviour
 
     void Climb()
     {
-        if (transform.position.y < myCurrentRopeGuyYPosition && transform.position.y > myCurrentRopeGuyYPosition -myCurrentRopeLength)
+        Vector2 tempYPosition = transform.position;
+        if (transform.position.y >= myCurrentRopeGuyYPosition)//  && 
         {
-            transform.Translate(myMovementVector * mySpeed / 2 * Time.fixedDeltaTime);
-            
+            tempYPosition.y -= .1f;
+            transform.position = tempYPosition;
         }
+        else if (transform.position.y <= myCurrentRopeGuyYPosition - myCurrentRopeLength)
+        {
+            tempYPosition.y += .1f;
+            transform.position = tempYPosition;
+        }
+        transform.Translate(myMovementVector * mySpeed / 2 * Time.fixedDeltaTime);   
     }
 
     void Movement()
@@ -296,6 +296,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (myShouldJump)
         {
+            SetNewState(EPlayerState.Jump);
             myShouldJump = false;
             if (myIsFacingRight)
             {
@@ -402,7 +403,7 @@ public class PlayerMovement : MonoBehaviour
         if (aCallbackContext.phase == InputActionPhase.Started)
         {
             myJumpButtonPressedTimeStamp = Time.time;
-            
+            SetNewState(EPlayerState.PrepareJump);
         }
 
         if (aCallbackContext.phase == InputActionPhase.Canceled && myIsGrounded)
@@ -417,7 +418,6 @@ public class PlayerMovement : MonoBehaviour
             }
 
             myShouldJump = true;
-            SetNewState(EPlayerState.Jump);
         }
     }
 
