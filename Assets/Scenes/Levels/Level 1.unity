@@ -123,67 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &2664922
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2664298348420719943, guid: 391d19f09b9202640885a80646c7c4ce, type: 3}
-      propertyPath: myCursorGameObject
-      value: 
-      objectReference: {fileID: 1802835147}
-    - target: {fileID: 2967547306203915821, guid: 391d19f09b9202640885a80646c7c4ce, type: 3}
-      propertyPath: m_Name
-      value: GameManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 7939134597899233407, guid: 391d19f09b9202640885a80646c7c4ce, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7939134597899233407, guid: 391d19f09b9202640885a80646c7c4ce, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7939134597899233407, guid: 391d19f09b9202640885a80646c7c4ce, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7939134597899233407, guid: 391d19f09b9202640885a80646c7c4ce, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7939134597899233407, guid: 391d19f09b9202640885a80646c7c4ce, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7939134597899233407, guid: 391d19f09b9202640885a80646c7c4ce, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7939134597899233407, guid: 391d19f09b9202640885a80646c7c4ce, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7939134597899233407, guid: 391d19f09b9202640885a80646c7c4ce, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7939134597899233407, guid: 391d19f09b9202640885a80646c7c4ce, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7939134597899233407, guid: 391d19f09b9202640885a80646c7c4ce, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 391d19f09b9202640885a80646c7c4ce, type: 3}
 --- !u!1 &43219085
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,7 +771,7 @@ PrefabInstance:
     - target: {fileID: 4537303250019824108, guid: 46ae148363fda5e42a971cda193985a8, type: 3}
       propertyPath: mySummonsParent
       value: 
-      objectReference: {fileID: 1340724845}
+      objectReference: {fileID: 0}
     - target: {fileID: 4537303250019824108, guid: 46ae148363fda5e42a971cda193985a8, type: 3}
       propertyPath: mySkillSelectMenu
       value: 
@@ -3805,11 +3744,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1340724845 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2967547306203915821, guid: 391d19f09b9202640885a80646c7c4ce, type: 3}
-  m_PrefabInstance: {fileID: 2664922}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1415865732
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4479,17 +4413,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bebf14afcb672d40ab0661479cb065b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1802835147 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4895978181449827790, guid: 5806cc6411fb0d64f99b48308c45795a, type: 3}
-  m_PrefabInstance: {fileID: 1802835145}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1867773558
@@ -5693,7 +5616,6 @@ SceneRoots:
   - {fileID: 1160121530}
   - {fileID: 43219087}
   - {fileID: 1210041945}
-  - {fileID: 2664922}
   - {fileID: 1982663088}
   - {fileID: 1802835145}
   - {fileID: 350032482}
