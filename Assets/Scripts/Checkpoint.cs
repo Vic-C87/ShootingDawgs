@@ -2,19 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Checkpoint : MonoBehaviour
 {
     [SerializeField] GameObject myBatsPrefab;
 
+    AudioSource myAudioSource;
+
     bool myBatsTriggered = false;
+
+    private void Awake()
+    {
+        myAudioSource = GetComponent<AudioSource>();
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             if(LevelManager.Instance.activeSpawnPoint != this.gameObject) 
             {
-                SoundManager.Instance.PlaySuperEvilLaughSound();
                 LevelManager.Instance.activeSpawnPoint = this.gameObject;
+                if (myAudioSource.clip != null)
+                    myAudioSource.Play();
             }
 
             if (!myBatsTriggered)

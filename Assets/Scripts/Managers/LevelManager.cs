@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
@@ -9,6 +10,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] PlayerMovement player;
 
     public GameObject activeSpawnPoint;
+    AudioSource myAudioSource;
 
     private void Awake()
     {
@@ -20,6 +22,13 @@ public class LevelManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        myAudioSource = GetComponent<AudioSource>();
+    }
+
+    private void Start()
+    {
+        myAudioSource.Play();
     }
 
     void heightCheck()
