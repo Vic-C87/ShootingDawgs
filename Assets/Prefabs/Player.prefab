@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myJumpingDirection: {x: 1.25, y: 2}
+  myIsClimbing: 0
   myRopeGuyLifeTime: 10
   myHalfWidth: 0.6
   myHalfHeight: 0.3

@@ -52,9 +52,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a194b089336fd6946b0d817219f1c448, type: 3}
   - {fileID: 8300000, guid: c85912ea1f5a80f47a88e5c04b185a63, type: 3}
   myEvilLaughSounds:
+  - {fileID: 8300000, guid: 4ded41d3656542c45b9a7d20041254d8, type: 3}
   - {fileID: 8300000, guid: 6d29d58a615f90644bdd03e8035e8742, type: 3}
   - {fileID: 8300000, guid: 4f409f884facdfb4a9acc4c4954676b3, type: 3}
   - {fileID: 8300000, guid: 13134840f67823944920869b8fba677c, type: 3}
+  - {fileID: 8300000, guid: e8b3e7d111261ce409c82c2578a14ae9, type: 3}
   myHurtSounds:
   - {fileID: 8300000, guid: 7c9a10f4639b47d4d817e3df91b1b6b8, type: 3}
   - {fileID: 8300000, guid: 7717662cfbe7d8042aba3140790c9066, type: 3}

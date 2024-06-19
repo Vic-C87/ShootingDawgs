@@ -28,6 +28,8 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        myAudioSource.loop = true;
+        myAudioSource.volume = 0.2f;
         myAudioSource.Play();
     }
 
