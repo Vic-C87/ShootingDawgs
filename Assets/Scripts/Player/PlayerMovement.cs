@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     bool myIsBats;
     bool myPuncherActive;
     bool myIsDead;
+    bool myIsWalkingSoundPlaying;
 
     int myRopeGuyCurrentSpawnIndex;
 
@@ -184,6 +185,12 @@ public class PlayerMovement : MonoBehaviour
         myAnimator.SetBool("isLanding", false);
         myAnimator.SetBool("isDead", true);
         SpawnSmoke(transform.position, 1f);
+        SoundManager.Instance.PlayDeathSound();
+        if (myAnvilActive)
+        {
+            myPreLoadedAnvil.SetActive(false);
+            myAnvilActive = false;
+        }
     }
 
     public void RespawnPlayer()
@@ -194,6 +201,7 @@ public class PlayerMovement : MonoBehaviour
         LevelManager.Instance.RespawnPlayer();
         GameObject bats = Instantiate(myRespawnBats, transform.position, Quaternion.identity, mySummonsParent.transform);
         Destroy(bats, 1f);
+        SoundManager.Instance.PlayEvilLaughSound();
     }
 
     void CheckAirTime()
@@ -236,9 +244,12 @@ public class PlayerMovement : MonoBehaviour
             if (myAnvilActive)
             {
                 SetNewState(EPlayerState.Land);
+                myAnimator.SetBool("isFalling", false);
+                myAnimator.SetBool("isLanding", true);
                 myPreLoadedAnvil.SetActive(false);
                 SpawnSmoke(transform.position + Vector3.down * myAnvilOffSet, 1f);
                 myAnvilActive = false;
+                SoundManager.Instance.PlayHurtSound();
             }
             myPreviousYPosition = 0f;
         }
@@ -383,6 +394,7 @@ public class PlayerMovement : MonoBehaviour
             Destroy(puncher, myPuncherLifeTime);
             myPuncherActive = true;
             myPuncherTimeStamp = Time.time;
+            SoundManager.Instance.PlayPuncherSound();
         }
     }
 
@@ -420,6 +432,10 @@ public class PlayerMovement : MonoBehaviour
         if (aCallbackContext.phase == InputActionPhase.Canceled)
         {
             SetNewState(EPlayerState.Idle);
+            if (myIsWalkingSoundPlaying) 
+            {
+                myIsWalkingSoundPlaying = false;
+            }           
         }
     }
 
@@ -460,6 +476,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             myShouldJump = true;
+            SoundManager.Instance.PlayJumpSound();
         }
     }
 

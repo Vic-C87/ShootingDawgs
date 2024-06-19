@@ -17,10 +17,14 @@ public class RopeGuy : MonoBehaviour
     List<GameObject> myRopeList;
 
     PlayerMovement myPlayer;
+    AudioSource myAudioSource;
+    bool mySoundIsPlaying;
 
     void Awake()
     {
         myRopeList = new List<GameObject>();
+        myAudioSource = GetComponent<AudioSource>();
+        mySoundIsPlaying = false;
     }
 
     void Start()
@@ -41,7 +45,17 @@ public class RopeGuy : MonoBehaviour
     {
         if (myRopeSpawnPoint.position.y - myRopeBottom.transform.position.y < myMaxLength) 
         {
+            if (!mySoundIsPlaying) 
+            {
+                mySoundIsPlaying = true;
+                myAudioSource.Play();
+            }
             myRopeBottom.transform.position += Vector3.down * myRopeSpeed * Time.deltaTime;
+        }
+        else
+        {
+            mySoundIsPlaying = false;
+            myAudioSource.Stop();
         }
     }
 
