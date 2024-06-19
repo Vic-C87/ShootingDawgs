@@ -11,7 +11,12 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            LevelManager.Instance.activeSpawnPoint = this.gameObject;
+            if(LevelManager.Instance.activeSpawnPoint != this.gameObject) 
+            {
+                SoundManager.Instance.PlaySuperEvilLaughSound();
+                LevelManager.Instance.activeSpawnPoint = this.gameObject;
+            }
+
             if (!myBatsTriggered)
             {
                 myBatsTriggered = true;

@@ -51,6 +51,15 @@ public class SoundManager : MonoBehaviour
         myAudioSource.clip = myEvilLaughSounds[0];
         myAudioSource.Play();
     }
+
+    public void PlaySuperEvilLaughSound()
+    {
+        myAudioSource.loop = false;
+        myAudioSource.volume = 1f;
+        myAudioSource.clip = myEvilLaughSounds[3];
+        myAudioSource.Play();
+    }
+
     public void PlayHurtSound() 
     {
         myAudioSource.loop = false;

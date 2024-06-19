@@ -58,8 +58,6 @@ MonoBehaviour:
   myHurtSounds:
   - {fileID: 8300000, guid: 7c9a10f4639b47d4d817e3df91b1b6b8, type: 3}
   - {fileID: 8300000, guid: 7717662cfbe7d8042aba3140790c9066, type: 3}
-  myRopeGuySounds:
-  - {fileID: 8300000, guid: 813386e9ef9e65448abeaaa559b97510, type: 3}
   myJumpSounds:
   - {fileID: 8300000, guid: 87d493481daadb24ab5ce8a576d2db49, type: 3}
   - {fileID: 8300000, guid: 7b3795d0fc6a8374bacdfcc8ca277e8d, type: 3}
@@ -77,16 +75,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 30ed717018b04654bb3b74b813a6e9c0, type: 3}
   - {fileID: 8300000, guid: f102ab16662e45f4cb0d658dcfd5ea24, type: 3}
   - {fileID: 8300000, guid: f72ac783a0b030a428ea6b160d696817, type: 3}
-  myWalkSounds:
-  - {fileID: 8300000, guid: 33240521e4af6f045b96cb7cb1658fb4, type: 3}
-  - {fileID: 8300000, guid: de15295142140984f8fbb05cb5e08150, type: 3}
-  - {fileID: 8300000, guid: d1e3facdf2af81244b2335ccebad2741, type: 3}
-  - {fileID: 8300000, guid: 47340c6a77c813e418b0d328a1f56701, type: 3}
-  - {fileID: 8300000, guid: 028d00a9206db144c99440de6db1472b, type: 3}
-  - {fileID: 8300000, guid: 49d2d4c8552cb634fa3a8fd6fd1ad022, type: 3}
-  - {fileID: 8300000, guid: c2d5ec2d15f8d7f4a817479df027e5b5, type: 3}
-  - {fileID: 8300000, guid: 64d17366c4ca09a489540c59ae1446cb, type: 3}
-  - {fileID: 8300000, guid: 58337577e2bffd4479d1dc5c5eb7ab24, type: 3}
 --- !u!82 &2891743747055764934
 AudioSource:
   m_ObjectHideFlags: 0
