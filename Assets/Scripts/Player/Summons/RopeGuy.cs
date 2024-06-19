@@ -87,7 +87,8 @@ public class RopeGuy : MonoBehaviour
     public void DeSpawn()
     {
         myPlayer.SpawnSmoke(transform.position, 1f);
-        myPlayer.StopClimb();       
+        myPlayer.StopClimb();
+        myPlayer.DeactivateRopeGuy(this);
         gameObject.SetActive(false);
 
     }

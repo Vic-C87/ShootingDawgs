@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.39215687}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -311,7 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -420,10 +420,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mySkillSpritePrefabs:
   - {fileID: 21300000, guid: 6989047420daed94b9d98501e8119229, type: 3}
-  - {fileID: 21300000, guid: c548dbaaab9d25146973d1d9afa36db0, type: 3}
-  - {fileID: 21300000, guid: 962442947fd8649429c38c67261b64ef, type: 3}
-  - {fileID: 21300000, guid: 5b6b655447a80154a8bd8316b0081729, type: 3}
-  - {fileID: 21300000, guid: 152aa4420f570f44d88f913b306bb0ca, type: 3}
+  - {fileID: 21300000, guid: 663b0b5faf5227844a5952b855d8f4e0, type: 3}
+  - {fileID: 21300000, guid: 292bc6589d0098148905df2fb7551399, type: 3}
+  - {fileID: 21300000, guid: 4485e1b027ac307479f27914b7913da5, type: 3}
+  - {fileID: 21300000, guid: c47c2aaabf74cb84d82bfa3805a82b31, type: 3}
   myMaxDistance: 0.05
   mySpriteFrame: {fileID: 21300000, guid: 6989047420daed94b9d98501e8119229, type: 3}
   myImage: {fileID: 1078452564245984914}

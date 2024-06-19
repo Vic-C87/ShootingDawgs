@@ -15,14 +15,12 @@ public class PlayerMovement : MonoBehaviour
     bool myHaveJumped;
     bool myIsFacingRight;
     bool mySkillsMenuIsOpen;
-    bool myIsClimbing;
+    [SerializeField] bool myIsClimbing;
     bool myAnvilActive;
     bool myIsBats;
     bool myPuncherActive;
     bool myIsDead;
     bool myIsWalkingSoundPlaying;
-
-    int myRopeGuyCurrentSpawnIndex;
 
     float myJumpButtonPressedTimeStamp;
     float myJumpForce;
@@ -55,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
 
     GameObject myPreLoadedAnvil;
 
-    List<RopeGuy> myPreLoadedRopeGuys;
+    Queue<RopeGuy> myPreLoadedRopeGuys;
 
     Animator myAnimator;
     EPlayerState myState;
@@ -73,8 +71,7 @@ public class PlayerMovement : MonoBehaviour
         myRigidbody = GetComponent<Rigidbody2D>();
         myIsGrounded = false;
         myIsFacingRight = true;
-        myPreLoadedRopeGuys = new List<RopeGuy>();
-        myRopeGuyCurrentSpawnIndex = 0;
+        myPreLoadedRopeGuys = new Queue<RopeGuy>();
         myAnimator = GetComponentInChildren<Animator>();
     }
 
@@ -93,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
             RopeGuy guy = summon.GetComponent<RopeGuy>();
             guy.SetPlayer(this);
             summon.SetActive(false);
-            myPreLoadedRopeGuys.Add(guy);
+            myPreLoadedRopeGuys.Enqueue(guy);
         }
     }
 
@@ -197,7 +194,11 @@ public class PlayerMovement : MonoBehaviour
     {
         myIsDead = false;
         myAnimator.SetBool("isDead", false);
-        SetNewState(EPlayerState.Idle);        
+        SetNewState(EPlayerState.Idle);
+        Vector2 currentScale = transform.localScale;
+        currentScale.x = Mathf.Abs(currentScale.x);
+        transform.localScale = currentScale;
+        myIsFacingRight = true;
         LevelManager.Instance.RespawnPlayer();
         GameObject bats = Instantiate(myRespawnBats, transform.position, Quaternion.identity, mySummonsParent.transform);
         Destroy(bats, 1f);
@@ -232,7 +233,6 @@ public class PlayerMovement : MonoBehaviour
                 SetNewState(EPlayerState.Land);
                 myRigidbody.velocity = Vector2.zero;
                 myHaveJumped = false;
-                myIsClimbing = false;
             }
             if (myIsBats) 
             {
@@ -302,7 +302,7 @@ public class PlayerMovement : MonoBehaviour
     void Climb()
     {
         Vector2 tempYPosition = transform.position;
-        if (transform.position.y >= myCurrentRopeGuyYPosition)//  && 
+        if (transform.position.y >= myCurrentRopeGuyYPosition)
         {
             tempYPosition.y -= .1f;
             transform.position = tempYPosition;
@@ -352,16 +352,19 @@ public class PlayerMovement : MonoBehaviour
 
     void ActivateRopeGuy(Vector2 aPosition)
     {
-        myPreLoadedRopeGuys[myRopeGuyCurrentSpawnIndex].gameObject.SetActive(true);
-        myPreLoadedRopeGuys[myRopeGuyCurrentSpawnIndex].transform.position = aPosition;
-        SpawnSmoke(aPosition, 1f);
-        myPreLoadedRopeGuys[myRopeGuyCurrentSpawnIndex].SetLifeTime(myRopeGuyLifeTime);
-
-        myRopeGuyCurrentSpawnIndex++;
-        if (myRopeGuyCurrentSpawnIndex >= myPreLoadedRopeGuys.Count)
+        if (myPreLoadedRopeGuys.Count > 0)
         {
-            myRopeGuyCurrentSpawnIndex = 0;
+            RopeGuy guy = myPreLoadedRopeGuys.Dequeue();
+            guy.gameObject.SetActive(true);
+            guy.transform.position = aPosition;
+            SpawnSmoke(aPosition, 1f);
+            guy.SetLifeTime(myRopeGuyLifeTime);
         }
+    }
+
+    public void DeactivateRopeGuy(RopeGuy aRopeGuy)
+    {
+        myPreLoadedRopeGuys.Enqueue(aRopeGuy);
     }
 
     void ActivateAnvil()
@@ -374,7 +377,6 @@ public class PlayerMovement : MonoBehaviour
             myRigidbody.velocity = Vector2.zero;
             myRigidbody.AddForce(Vector2.down * myAnvilPullDownForce, ForceMode2D.Impulse);
             myAnvilActive = true;
-
         }
     }
 
@@ -400,10 +402,16 @@ public class PlayerMovement : MonoBehaviour
 
     void ActivateBats()
     {
-        myIsBats = true;
-        myRigidbody.gravityScale = myGravityWhenBats;
-        myRigidbody.velocity = Vector2.zero;
-        SetNewState(EPlayerState.Bats);
+        if (!myIsBats)
+        {
+            myIsBats = true;
+            myRigidbody.gravityScale = myGravityWhenBats;
+            myRigidbody.velocity = Vector2.zero;
+            SetNewState(EPlayerState.Bats);
+            myAnimator.SetBool("isFalling", false);
+            myAnimator.SetBool("isJumping", false);
+            myAnimator.SetBool("isBats", true);
+        }
     }
 
     public void SetSelectedSkill(ESkills aSelectedSkill)
@@ -424,12 +432,12 @@ public class PlayerMovement : MonoBehaviour
     public void OnMovement(InputAction.CallbackContext aCallbackContext)
     {
         myMovementVector = aCallbackContext.ReadValue<Vector2>();
-        if (aCallbackContext.phase == InputActionPhase.Started)
+        if (aCallbackContext.phase == InputActionPhase.Started && !myIsBats)
         {
             SetNewState(EPlayerState.Run);
         }
 
-        if (aCallbackContext.phase == InputActionPhase.Canceled)
+        if (aCallbackContext.phase == InputActionPhase.Canceled && !myIsBats)
         {
             SetNewState(EPlayerState.Idle);
             if (myIsWalkingSoundPlaying) 
@@ -458,7 +466,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext aCallbackContext)
     {
-        if (aCallbackContext.phase == InputActionPhase.Started)
+        if (aCallbackContext.phase == InputActionPhase.Started && myIsGrounded)
         {
             myJumpButtonPressedTimeStamp = Time.time;
             SetNewState(EPlayerState.PrepareJump);

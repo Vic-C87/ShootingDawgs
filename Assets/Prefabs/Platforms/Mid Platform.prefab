@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21ba0a9cc3a1ef42aac679c760f73c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myBatsPrefab: {fileID: 6384285154476997842, guid: 734b248b9199c294ebbb1d7a28e2166e, type: 3}
 --- !u!1 &823738952651568227
 GameObject:
   m_ObjectHideFlags: 0
