@@ -18,7 +18,8 @@ public class PlayerMovement : MonoBehaviour
     bool myIsClimbing;
     bool myAnvilActive;
     bool myIsBats;
-    [SerializeField] bool myPuncherActive;
+    bool myPuncherActive;
+    bool myIsDead;
 
     int myRopeGuyCurrentSpawnIndex;
 
@@ -118,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
 
     void SetAnimator()
     {
-        if (myPreviousState != myState)
+        if (myPreviousState != myState && !myIsDead)
         {
             switch (myState)
             {
@@ -158,6 +159,9 @@ public class PlayerMovement : MonoBehaviour
                     myAnimator.SetBool("isBats", true);
                     break;
                 case EPlayerState.Die:
+                    myAnimator.SetBool("isIdle", false);
+                    myAnimator.SetBool("isBats", false);
+                    myAnimator.SetBool("isFalling", false);
                     myAnimator.SetBool("isLanding", false);
                     myAnimator.SetBool("isDead", true);
                     break;
@@ -166,6 +170,26 @@ public class PlayerMovement : MonoBehaviour
             }
             myPreviousState = myState;
         }
+    }
+
+    public void Die()
+    {
+        myIsDead = true;
+        myAnimator.SetBool("isIdle", false);
+        myAnimator.SetBool("isBats", false);
+        myAnimator.SetBool("isFalling", false);
+        myAnimator.SetBool("isWalking", false);
+        myAnimator.SetBool("isLanding", false);
+        myAnimator.SetBool("isDead", true);
+        SpawnSmoke(transform.position, 1f);
+    }
+
+    public void RespawnPlayer()
+    {
+        myIsDead = false;
+        myAnimator.SetBool("isDead", false);
+        SetNewState(EPlayerState.Idle);        
+        LevelManager.Instance.RespawnPlayer();
     }
 
     void CheckAirTime()

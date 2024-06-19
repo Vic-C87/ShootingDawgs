@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    public static LevelManager Instance;
     [SerializeField] List<GameObject> spawnPoints = new List<GameObject>();
     [SerializeField] PlayerMovement player;
 
@@ -21,30 +22,21 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public static LevelManager Instance;
-
     void heightCheck()
     {
-        if (player.transform.position.y < 0f)
+        if (player.transform.position.y < -1f)
         {
-            player.transform.position = activeSpawnPoint.transform.position;
+            RespawnPlayer();
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         heightCheck();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void RespawnPlayer()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        player.transform.position = activeSpawnPoint.transform.position;
     }
 }

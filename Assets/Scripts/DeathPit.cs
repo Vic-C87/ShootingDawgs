@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class DeathPit : MonoBehaviour
 {
-    [SerializeField] PlayerMovement player;
-    void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.gameObject.TryGetComponent(out PlayerMovement player))
         {
-            //player.SetNewState(EPlayerState.Die);
+            player.Die();
         }
     }
+   
 }
