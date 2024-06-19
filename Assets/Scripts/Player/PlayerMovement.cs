@@ -342,12 +342,17 @@ public class PlayerMovement : MonoBehaviour
 
     void ActivatePowerPunch(float aDirection)
     {
-        myPreLoadedSummons[ESummons.Puncher].SetActive(true);
-        myPreLoadedSummons[ESummons.Puncher].transform.position = transform.position + (transform.right * myPuncherOffSet * aDirection);
+        GameObject puncher = Instantiate(mySummons[3], transform.position + (transform.right * myPuncherOffSet * aDirection), transform.rotation);
+        SpawnSmoke(transform.position + (transform.right * myPuncherOffSet * aDirection), 1f);
+        Vector3 tempScale = puncher.transform.localScale;
+        tempScale.x = transform.localScale.x * 3;
+        puncher.transform.localScale = tempScale;
         Vector2 direction = new Vector2(.5f, .5f);
         direction.Normalize();
         direction.x *= -aDirection;
         myRigidbody.AddForce(direction * myPowerPunchForce, ForceMode2D.Impulse);
+        Destroy(puncher, 1f);
+
     }
 
     void ActivateBats()
