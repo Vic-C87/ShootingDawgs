@@ -120,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
 
     void SetAnimator()
     {
-        if (myPreviousState != myState && !myIsDead)
+        if (!myIsDead && myPreviousState != myState)
         {
             switch (myState)
             {
@@ -145,6 +145,7 @@ public class PlayerMovement : MonoBehaviour
                     myAnimator.SetBool("isJumping", true);
                     break;
                 case EPlayerState.Fall:
+                    myAnimator.SetBool("isIdle", false);
                     myAnimator.SetBool("isBats", false);
                     myAnimator.SetBool("isJumping", false);
                     myAnimator.SetBool("isFalling", true);
