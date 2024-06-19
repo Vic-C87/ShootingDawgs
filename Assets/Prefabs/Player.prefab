@@ -51,7 +51,7 @@ MonoBehaviour:
   myJumpingDirection: {x: 1.25, y: 2}
   myIsBats: 0
   myJumpAngle: 0
-  myRopeGuyLifeTime: 15
+  myRopeGuyLifeTime: 12.5
   myHalfWidth: 0.6
   myHalfHeight: 0.3
   myGroundDistanceCheck: 0.05
