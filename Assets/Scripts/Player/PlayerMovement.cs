@@ -17,10 +17,7 @@ public class PlayerMovement : MonoBehaviour
     bool mySkillsMenuIsOpen;
     bool myIsClimbing;
     bool myAnvilActive;
-    bool myIsMoving;
-    bool myIsFalling;
-    bool myIsDead;
-    [SerializeField] bool myIsBats;
+    bool myIsBats;
 
     int myRopeGuyCurrentSpawnIndex;
 
@@ -28,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
     float myJumpForce;
     float myXPositionWhenStartedClimb;
     float myPreviousYPosition;
-    [SerializeField, Range(0,90)] float myJumpAngle;
     [SerializeField] float myRopeGuyLifeTime;
     [SerializeField] float myHalfWidth;
     [SerializeField] float myHalfHeight;
@@ -53,23 +49,24 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] GameObject mySummonsParent;
 
-    Dictionary<ESummons, GameObject> myPreLoadedSummons;
+    GameObject myPreLoadedAnvil;
 
     List<RopeGuy> myPreLoadedRopeGuys;
 
     Animator myAnimator;
-    [SerializeField] EPlayerState myState;
-    [SerializeField] EPlayerState myPreviousState;
+    EPlayerState myState;
+    EPlayerState myPreviousState;
 
     float myCurrentRopeGuyYPosition;
     float myCurrentRopeLength;
+
+    [SerializeField] GameObject mySmoke;
 
     void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         myIsGrounded = false;
         myIsFacingRight = true;
-        myPreLoadedSummons = new Dictionary<ESummons, GameObject>();
         myPreLoadedRopeGuys = new List<RopeGuy>();
         myRopeGuyCurrentSpawnIndex = 0;
         myAnimator = GetComponentInChildren<Animator>();
@@ -81,13 +78,9 @@ public class PlayerMovement : MonoBehaviour
         myState = EPlayerState.Idle;
         myJumpingDirection.Normalize();
         mySkillSelectMenu.gameObject.SetActive(false);
-        for (int i = 1; i < mySummons.Count; i++)
-        {
-            GameObject summon = Instantiate(mySummons[i], mySummonsParent.transform);
-            summon.SetActive(false);
-            myPreLoadedSummons.Add((ESummons)i, summon);
-        }
-        myPreLoadedSummons[ESummons.Anvil].transform.parent = transform;
+        GameObject anvil = Instantiate(mySummons[2], transform);
+        anvil.SetActive(false);
+        myPreLoadedAnvil = anvil;
         for (int i = 0; i < myPreLoadedRopeGuyAmount; i++)
         {
             GameObject summon = Instantiate(mySummons[0], mySummonsParent.transform);
@@ -106,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
         SetAnimator();
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (!myIsClimbing)
         {
@@ -178,7 +171,6 @@ public class PlayerMovement : MonoBehaviour
             if (myPreviousYPosition > 0f && transform.position.y < myPreviousYPosition)
             {
                 SetNewState(EPlayerState.Fall);
-                myIsFalling = true;
             }
             else
             {
@@ -201,7 +193,6 @@ public class PlayerMovement : MonoBehaviour
                 myRigidbody.velocity = Vector2.zero;
                 myHaveJumped = false;
                 myIsClimbing = false;
-                myIsFalling = false;                
             }
             if (myIsBats) 
             {
@@ -213,7 +204,7 @@ public class PlayerMovement : MonoBehaviour
             if (myAnvilActive)
             {
                 SetNewState(EPlayerState.Land);
-                myPreLoadedSummons[ESummons.Anvil].SetActive(false);
+                myPreLoadedAnvil.SetActive(false);
                 SpawnSmoke(transform.position + Vector3.down * myAnvilOffSet, 1f);
                 myAnvilActive = false;
             }
@@ -224,18 +215,17 @@ public class PlayerMovement : MonoBehaviour
             myIsGrounded = false;
             if (!myIsClimbing && !myIsBats)
             {
-                //SetNewState(EPlayerState.Jump);
                 myHaveJumped = true;
             }
         }
 
-        if (Mathf.Abs(transform.position.x - myXPositionWhenStartedClimb) > 1f && !myIsBats) //Fixa!!! Logga y pos och längd och gör check för de här
+        if (Mathf.Abs(transform.position.x - myXPositionWhenStartedClimb) > 1f && !myIsBats)
         {
             StopClimb();
         }
     }
 
-    public void SetNewState(EPlayerState aNewState)
+    public void SetNewState(EPlayerState aNewState)//Is 'public' needed?
     {
         myPreviousState = myState;
         myState = aNewState;
@@ -313,7 +303,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void SpawnSmoke(Vector3 aPosition, float aDuration)
     {
-        //FIX!
+        GameObject smoke = Instantiate(mySmoke, aPosition, Quaternion.identity);
+        Destroy(smoke, aDuration);
     }
 
     void ActivateRopeGuy(Vector2 aPosition)
@@ -332,8 +323,8 @@ public class PlayerMovement : MonoBehaviour
 
     void ActivateAnvil()
     {
-        myPreLoadedSummons[ESummons.Anvil].SetActive(true);
-        myPreLoadedSummons[ESummons.Anvil].transform.position = transform.position + Vector3.down * myAnvilOffSet;
+        myPreLoadedAnvil.SetActive(true);
+        myPreLoadedAnvil.transform.position = transform.position + Vector3.down * myAnvilOffSet;
         SpawnSmoke(transform.position + Vector3.down * myAnvilOffSet, 1f);
         myRigidbody.velocity = Vector2.zero;
         myRigidbody.AddForce(Vector2.down * myAnvilPullDownForce, ForceMode2D.Impulse);
@@ -345,7 +336,7 @@ public class PlayerMovement : MonoBehaviour
         GameObject puncher = Instantiate(mySummons[3], transform.position + (transform.right * myPuncherOffSet * aDirection), transform.rotation);
         SpawnSmoke(transform.position + (transform.right * myPuncherOffSet * aDirection), 1f);
         Vector3 tempScale = puncher.transform.localScale;
-        tempScale.x = transform.localScale.x * 3;
+        tempScale.x *= -aDirection;
         puncher.transform.localScale = tempScale;
         Vector2 direction = new Vector2(.5f, .5f);
         direction.Normalize();
@@ -375,13 +366,11 @@ public class PlayerMovement : MonoBehaviour
         myMovementVector = aCallbackContext.ReadValue<Vector2>();
         if (aCallbackContext.phase == InputActionPhase.Started)
         {
-            myIsMoving = true;
             SetNewState(EPlayerState.Run);
         }
 
         if (aCallbackContext.phase == InputActionPhase.Canceled)
         {
-            myIsMoving = false;
             SetNewState(EPlayerState.Idle);
         }
     }
@@ -449,7 +438,6 @@ public class PlayerMovement : MonoBehaviour
                     case ESkills.PowerPunch:
                         float facingDirection = myIsFacingRight ? -1 : 1;
                         ActivatePowerPunch(facingDirection);
-                        //Despawn time, flip puncher sprite
                         break;
                     default:
                         break;

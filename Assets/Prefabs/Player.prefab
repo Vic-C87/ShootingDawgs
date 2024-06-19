@@ -76,9 +76,10 @@ MonoBehaviour:
   - {fileID: 2973014013169955020, guid: 0a0197185ec09a14985d3268e558028e, type: 3}
   - {fileID: 385687140914634582, guid: 052f639113715cb48ad9eb92e0b6a819, type: 3}
   - {fileID: 832714290784917602, guid: 5ba4b443383debc4eabd867ef98b6569, type: 3}
-  mySummonsParent: {fileID: 0}
+  mySummonsParent: {fileID: 2967547306203915821, guid: 391d19f09b9202640885a80646c7c4ce, type: 3}
   myState: 0
   myPreviousState: 0
+  mySmoke: {fileID: 8030770079571051376, guid: fb50ce7c09a7f6f4ab22d229a7e81533, type: 3}
 --- !u!114 &6400316045354632042
 MonoBehaviour:
   m_ObjectHideFlags: 0
