@@ -28,6 +28,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        //myAudioSource.volume = 0.3f;
         myAudioSource.Play();
     }
 
