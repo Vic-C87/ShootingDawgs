@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     bool myIsClimbing;
     bool myAnvilActive;
     bool myIsBats;
+    [SerializeField] bool myPuncherActive;
 
     int myRopeGuyCurrentSpawnIndex;
 
@@ -36,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float myPuncherOffSet;
     [SerializeField] float myPuncherLifeTime;
     [SerializeField, Range(0,1)] float myGravityWhenBats;
+    [SerializeField] float myPuncherCooldown;
 
     [SerializeField] float mySpeed;
     [SerializeField] float myShortJumpForce;
@@ -59,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
     float myCurrentRopeGuyYPosition;
     float myCurrentRopeLength;
+    float myPuncherTimeStamp;
 
     [SerializeField] GameObject mySmoke;
 
@@ -97,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
         CheckFacingDirection();
         CheckAirTime();
         SetAnimator();
+        ResetPuncher();
     }
 
     void FixedUpdate()
@@ -323,27 +327,35 @@ public class PlayerMovement : MonoBehaviour
 
     void ActivateAnvil()
     {
-        myPreLoadedAnvil.SetActive(true);
-        myPreLoadedAnvil.transform.position = transform.position + Vector3.down * myAnvilOffSet;
-        SpawnSmoke(transform.position + Vector3.down * myAnvilOffSet, 1f);
-        myRigidbody.velocity = Vector2.zero;
-        myRigidbody.AddForce(Vector2.down * myAnvilPullDownForce, ForceMode2D.Impulse);
-        myAnvilActive = true;
+        if (!myAnvilActive)
+        {
+            myPreLoadedAnvil.SetActive(true);
+            myPreLoadedAnvil.transform.position = transform.position + Vector3.down * myAnvilOffSet;
+            SpawnSmoke(transform.position + Vector3.down * myAnvilOffSet, 1f);
+            myRigidbody.velocity = Vector2.zero;
+            myRigidbody.AddForce(Vector2.down * myAnvilPullDownForce, ForceMode2D.Impulse);
+            myAnvilActive = true;
+
+        }
     }
 
     void ActivatePowerPunch(float aDirection)
     {
-        GameObject puncher = Instantiate(mySummons[3], transform.position + (transform.right * myPuncherOffSet * aDirection), transform.rotation);
-        SpawnSmoke(transform.position + (transform.right * myPuncherOffSet * aDirection), 1f);
-        Vector3 tempScale = puncher.transform.localScale;
-        tempScale.x *= -aDirection;
-        puncher.transform.localScale = tempScale;
-        Vector2 direction = new Vector2(.5f, .5f);
-        direction.Normalize();
-        direction.x *= -aDirection;
-        myRigidbody.AddForce(direction * myPowerPunchForce, ForceMode2D.Impulse);
-        Destroy(puncher, 1f);
-
+        if (!myPuncherActive)
+        {
+            GameObject puncher = Instantiate(mySummons[3], transform.position + (transform.right * myPuncherOffSet * aDirection), transform.rotation);
+            SpawnSmoke(transform.position + (transform.right * myPuncherOffSet * aDirection), 1f);
+            Vector3 tempScale = puncher.transform.localScale;
+            tempScale.x *= -aDirection;
+            puncher.transform.localScale = tempScale;
+            Vector2 direction = new Vector2(.5f, .5f);
+            direction.Normalize();
+            direction.x *= -aDirection;
+            myRigidbody.AddForce(direction * myPowerPunchForce, ForceMode2D.Impulse);
+            Destroy(puncher, myPuncherLifeTime);
+            myPuncherActive = true;
+            myPuncherTimeStamp = Time.time;
+        }
     }
 
     void ActivateBats()
@@ -359,7 +371,15 @@ public class PlayerMovement : MonoBehaviour
         mySelectedSkill = aSelectedSkill;
     }
 
-#region Input
+    public void ResetPuncher()
+    {
+        if (myPuncherActive && Time.time - myPuncherTimeStamp > myPuncherCooldown)
+        {
+            myPuncherActive = false;
+        }
+    }
+
+    #region Input
 
     public void OnMovement(InputAction.CallbackContext aCallbackContext)
     {
