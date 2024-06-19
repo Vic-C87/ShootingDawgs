@@ -844,6 +844,10 @@ PrefabInstance:
       value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 4537303250019824108, guid: 46ae148363fda5e42a971cda193985a8, type: 3}
+      propertyPath: myRespawnBats
+      value: 
+      objectReference: {fileID: 6384285154476997842, guid: 734b248b9199c294ebbb1d7a28e2166e, type: 3}
+    - target: {fileID: 4537303250019824108, guid: 46ae148363fda5e42a971cda193985a8, type: 3}
       propertyPath: myLongJumpForce
       value: 7
       objectReference: {fileID: 0}

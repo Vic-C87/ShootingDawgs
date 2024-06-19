@@ -65,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
     float myPuncherTimeStamp;
 
     [SerializeField] GameObject mySmoke;
+    [SerializeField] GameObject myRespawnBats;
 
     void Awake()
     {
@@ -190,6 +191,8 @@ public class PlayerMovement : MonoBehaviour
         myAnimator.SetBool("isDead", false);
         SetNewState(EPlayerState.Idle);        
         LevelManager.Instance.RespawnPlayer();
+        GameObject bats = Instantiate(myRespawnBats, transform.position, Quaternion.identity, mySummonsParent.transform);
+        Destroy(bats, 1f);
     }
 
     void CheckAirTime()
