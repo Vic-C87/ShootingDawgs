@@ -11,9 +11,28 @@ public class Checkpoint : MonoBehaviour
 
     bool myBatsTriggered = false;
 
+    [SerializeField] bool myIsEndPoint;
+    [SerializeField] int myNextLevelNumber;
+
+    float myTimeStamp;
+    bool myShouldExit;
+
     private void Awake()
     {
         myAudioSource = GetComponent<AudioSource>();
+    }
+
+    void Update()
+    {
+        if (myShouldExit && Time.time - myTimeStamp > 1f)
+        {
+            ReturnToMenu();
+        }
+    }
+
+    void ReturnToMenu()
+    {
+        GameManager.Instance.ReturnToLevelSelect(myNextLevelNumber);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -32,6 +51,12 @@ public class Checkpoint : MonoBehaviour
                 myBatsTriggered = true;
                 GameObject bats = Instantiate(myBatsPrefab, transform.position, Quaternion.identity);
                 Destroy(bats, 1f);
+            }
+
+            if (myIsEndPoint) 
+            {
+                myShouldExit = true;
+                myTimeStamp = Time.time;
             }
         }
     }

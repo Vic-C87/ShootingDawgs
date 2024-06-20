@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [SerializeField] Image myCursorGameObject;
     [SerializeField] GameObject myLevelSelectScreen;
     [SerializeField] GameObject myMainScreen;
 
@@ -32,19 +31,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.visible = false;
+        myMainScreen.SetActive(true);
         myLevelSelectScreen.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateCursorPosition();
-    }
-
-    void UpdateCursorPosition()
-    {
-        myCursorGameObject.transform.position = Input.mousePosition;
     }
 
     public void OnPressStart()
@@ -52,15 +40,21 @@ public class GameManager : MonoBehaviour
         Debug.Log("Start!");
         myMainScreen.SetActive(false);
         myLevelSelectScreen.SetActive(true);
-
     }
 
     public void OnSelectLevel(int aLevelNumber)
     {
-        if (myUnlockedLevelIndex <= aLevelNumber)
+        if (myUnlockedLevelIndex >= aLevelNumber)
         {
             SceneManager.LoadScene(aLevelNumber);
         }
+    }
+
+    public void ReturnToLevelSelect(int aLevelToUnlock)
+    {
+        myUnlockedLevelIndex = aLevelToUnlock;
+        SceneManager.LoadScene(0);
+        
     }
 
     public void OnPressQuit()

@@ -300,7 +300,6 @@ RectTransform:
   - {fileID: 3342817062166145038}
   - {fileID: 3694258084610516909}
   - {fileID: 7685143235313781211}
-  - {fileID: 1769896444}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -323,7 +322,7 @@ PrefabInstance:
     - target: {fileID: 2664298348420719943, guid: 391d19f09b9202640885a80646c7c4ce, type: 3}
       propertyPath: myCursorGameObject
       value: 
-      objectReference: {fileID: 1769896446}
+      objectReference: {fileID: 0}
     - target: {fileID: 2664298348420719943, guid: 391d19f09b9202640885a80646c7c4ce, type: 3}
       propertyPath: myLevelSelectScreen
       value: 
@@ -386,22 +385,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ca55dc51b1c40a42a37ee30ec83fb14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!224 &1769896444 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-  m_PrefabInstance: {fileID: 3568272644914581836}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1769896446 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3479803025678456869, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-  m_PrefabInstance: {fileID: 3568272644914581836}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2098073081
@@ -604,8 +587,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449945962}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 8535416836645091536}
+        m_TargetAssemblyTypeName: LevelButtons, Assembly-CSharp
         m_MethodName: OnSelectLevel
         m_Mode: 3
         m_Arguments:
@@ -655,9 +638,10 @@ GameObject:
   - component: {fileID: 8535416836645091535}
   - component: {fileID: 4974772073123717437}
   - component: {fileID: 4693208450058725714}
+  - component: {fileID: 8535416836645091536}
   m_Layer: 5
   m_Name: Levels
-  m_TagString: Untagged
+  m_TagString: LevelSelect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -974,13 +958,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3694258084610516909}
+  - component: {fileID: 3694258084610516910}
   m_Layer: 5
   m_Name: Buttons
-  m_TagString: Untagged
+  m_TagString: MenuButtons
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &725383274644093566
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,8 +1384,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449945962}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 8535416836645091536}
+        m_TargetAssemblyTypeName: LevelButtons, Assembly-CSharp
         m_MethodName: OnSelectLevel
         m_Mode: 3
         m_Arguments:
@@ -1600,8 +1585,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449945962}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 8535416836645091536}
+        m_TargetAssemblyTypeName: LevelButtons, Assembly-CSharp
         m_MethodName: OnSelectLevel
         m_Mode: 3
         m_Arguments:
@@ -1675,8 +1660,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449945962}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 8535416836645091536}
+        m_TargetAssemblyTypeName: LevelButtons, Assembly-CSharp
         m_MethodName: OnSelectLevel
         m_Mode: 3
         m_Arguments:
@@ -1895,8 +1880,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449945962}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 8535416836645091536}
+        m_TargetAssemblyTypeName: LevelButtons, Assembly-CSharp
         m_MethodName: OnSelectLevel
         m_Mode: 3
         m_Arguments:
@@ -1951,8 +1936,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449945962}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 8535416836645091536}
+        m_TargetAssemblyTypeName: LevelButtons, Assembly-CSharp
         m_MethodName: OnSelectLevel
         m_Mode: 3
         m_Arguments:
@@ -2068,8 +2053,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449945962}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 8535416836645091536}
+        m_TargetAssemblyTypeName: LevelButtons, Assembly-CSharp
         m_MethodName: OnSelectLevel
         m_Mode: 3
         m_Arguments:
@@ -2760,103 +2745,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1001 &3568272644914581836
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1430085985}
-    m_Modifications:
-    - target: {fileID: 6516801854789885815, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_Name
-      value: Cursor
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.38268343
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.92387956
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8336148212119529321, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 135
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4cd87e3c4ca76704e8973c24ac6e4843, type: 3}
 --- !u!1 &3691265824103554673
 GameObject:
   m_ObjectHideFlags: 0
@@ -2916,6 +2804,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 16.81}
   m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3694258084610516910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673383167684193081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce464040f78f5714b97f6b801dbdced4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3816402886383587477
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3251,8 +3151,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449945962}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 8535416836645091536}
+        m_TargetAssemblyTypeName: LevelButtons, Assembly-CSharp
         m_MethodName: OnSelectLevel
         m_Mode: 3
         m_Arguments:
@@ -3572,8 +3472,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449945962}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 8535416836645091536}
+        m_TargetAssemblyTypeName: LevelButtons, Assembly-CSharp
         m_MethodName: OnSelectLevel
         m_Mode: 3
         m_Arguments:
@@ -3937,8 +3837,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449945962}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 8535416836645091536}
+        m_TargetAssemblyTypeName: LevelButtons, Assembly-CSharp
         m_MethodName: OnSelectLevel
         m_Mode: 3
         m_Arguments:
@@ -4274,8 +4174,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449945962}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 8535416836645091536}
+        m_TargetAssemblyTypeName: LevelButtons, Assembly-CSharp
         m_MethodName: OnSelectLevel
         m_Mode: 3
         m_Arguments:
@@ -4338,8 +4238,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449945962}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 8535416836645091536}
+        m_TargetAssemblyTypeName: LevelButtons, Assembly-CSharp
         m_MethodName: OnSelectLevel
         m_Mode: 3
         m_Arguments:
@@ -4458,8 +4358,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449945962}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 8535416836645091536}
+        m_TargetAssemblyTypeName: LevelButtons, Assembly-CSharp
         m_MethodName: OnSelectLevel
         m_Mode: 3
         m_Arguments:
@@ -4928,8 +4828,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449945962}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 8535416836645091536}
+        m_TargetAssemblyTypeName: LevelButtons, Assembly-CSharp
         m_MethodName: OnSelectLevel
         m_Mode: 3
         m_Arguments:
@@ -5033,8 +4933,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449945962}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 8535416836645091536}
+        m_TargetAssemblyTypeName: LevelButtons, Assembly-CSharp
         m_MethodName: OnSelectLevel
         m_Mode: 3
         m_Arguments:
@@ -5458,8 +5358,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449945962}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 8535416836645091536}
+        m_TargetAssemblyTypeName: LevelButtons, Assembly-CSharp
         m_MethodName: OnSelectLevel
         m_Mode: 3
         m_Arguments:
@@ -6073,8 +5973,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449945962}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 8535416836645091536}
+        m_TargetAssemblyTypeName: LevelButtons, Assembly-CSharp
         m_MethodName: OnSelectLevel
         m_Mode: 3
         m_Arguments:
@@ -6229,8 +6129,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449945962}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 8535416836645091536}
+        m_TargetAssemblyTypeName: LevelButtons, Assembly-CSharp
         m_MethodName: OnSelectLevel
         m_Mode: 3
         m_Arguments:
@@ -6285,8 +6185,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449945962}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 8535416836645091536}
+        m_TargetAssemblyTypeName: LevelButtons, Assembly-CSharp
         m_MethodName: OnSelectLevel
         m_Mode: 3
         m_Arguments:
@@ -6453,6 +6353,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 220701279988328659}
   m_CullTransparentMesh: 0
+--- !u!114 &8535416836645091536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220701279988328659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6448c2b047bded4abe518d28cc7cb7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &8550090789050533100
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6505,8 +6417,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1449945962}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 8535416836645091536}
+        m_TargetAssemblyTypeName: LevelButtons, Assembly-CSharp
         m_MethodName: OnSelectLevel
         m_Mode: 3
         m_Arguments:

@@ -77,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        mySummonsParent = FindObjectOfType<GameManager>().gameObject;
         myPreviousState = EPlayerState.None;
         myState = EPlayerState.Idle;
         myJumpingDirection.Normalize();

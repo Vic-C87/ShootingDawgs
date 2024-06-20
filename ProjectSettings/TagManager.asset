@@ -8,6 +8,8 @@ TagManager:
   - Rope
   - Spawnpoint
   - Endpoint
+  - LevelSelect
+  - MenuButtons
   layers:
   - Default
   - TransparentFX
