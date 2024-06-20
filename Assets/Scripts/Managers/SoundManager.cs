@@ -41,6 +41,7 @@ public class SoundManager : MonoBehaviour
         myAudioSource.loop = false;
         myAudioSource.volume = 1f;
         myAudioSource.clip = myDeathSounds[0];
+        myAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
         myAudioSource.Play();
     }
 
@@ -49,6 +50,7 @@ public class SoundManager : MonoBehaviour
         myAudioSource.loop = false;
         myAudioSource.volume = 1f;
         myAudioSource.clip = myEvilLaughSounds[0];
+        myAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
         myAudioSource.Play();
     }
 
@@ -57,6 +59,7 @@ public class SoundManager : MonoBehaviour
         myAudioSource.loop = false;
         myAudioSource.volume = 1f;
         myAudioSource.clip = myEvilLaughSounds[3];
+        myAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
         myAudioSource.Play();
     }
 
@@ -65,6 +68,7 @@ public class SoundManager : MonoBehaviour
         myAudioSource.loop = false;
         myAudioSource.volume = 1f;
         myAudioSource.clip = myHurtSounds[0];
+        myAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
         myAudioSource.Play();
     }
 
@@ -79,6 +83,7 @@ public class SoundManager : MonoBehaviour
         myAudioSource.loop = false;
         myAudioSource.volume = 1f;
         myAudioSource.clip = myJumpSounds[0];
+        myAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
         myAudioSource.Play();
     }
 
@@ -87,6 +92,7 @@ public class SoundManager : MonoBehaviour
         myAudioSource.loop = false;
         myAudioSource.volume = 1f;
         myAudioSource.clip = myPuncherSounds[0];
+        myAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
         myAudioSource.Play();
     }
 }
