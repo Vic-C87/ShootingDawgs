@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] Sprite mySpriteFrame;
     [SerializeField] Image myImage;
     [SerializeField] Image myImageSelected;
+    [SerializeField] TextMeshProUGUI myDeathCountUI;
 
     [SerializeField] PlayerMovement myPlayer;
     ECursorLocation myCursorLocation;

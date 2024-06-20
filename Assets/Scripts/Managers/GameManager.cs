@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class GameManager : MonoBehaviour
 
 
     int myUnlockedLevelIndex;
+
+    int myDeathCount;
 
     private void Awake()
     {
@@ -26,6 +29,7 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
         myUnlockedLevelIndex = 1;
+        myDeathCount = 0;
     }
 
     void Start()
@@ -36,7 +40,6 @@ public class GameManager : MonoBehaviour
 
     public void OnPressStart()
     {
-        Debug.Log("Start!");
         myMainScreen.SetActive(false);
         myLevelSelectScreen.SetActive(true);
     }
@@ -46,6 +49,7 @@ public class GameManager : MonoBehaviour
         if (myUnlockedLevelIndex >= aLevelNumber)
         {
             SceneManager.LoadScene(aLevelNumber);
+            
         }
     }
 
@@ -59,5 +63,21 @@ public class GameManager : MonoBehaviour
     public void OnPressQuit()
     {
         Application.Quit();
+    }
+
+    public int GetHighestLevelUnlocked()
+    {
+        return myUnlockedLevelIndex;
+    }
+
+    public void IncreaseDeathCount()
+    {
+        myDeathCount++;
+        FindObjectOfType<Canvas>().GetComponentInChildren<TextMeshProUGUI>().text = "Deaths: " +  myDeathCount;
+    }
+
+    public int GetDeathCount()
+    {
+        return myDeathCount;
     }
 }

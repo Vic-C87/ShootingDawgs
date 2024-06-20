@@ -166,6 +166,17 @@
                 },
                 {
                     "name": "",
+                    "id": "516b72e0-aa82-45e6-9648-4255e4248908",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SkillSelect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "e450d671-fc7f-45b3-8322-4a5a15da0293",
                     "path": "<Keyboard>/space",
                     "interactions": "",

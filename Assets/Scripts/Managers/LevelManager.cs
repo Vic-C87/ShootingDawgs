@@ -33,6 +33,11 @@ public class LevelManager : MonoBehaviour
         myAudioSource.Play();
     }
 
+    private void Update()
+    {
+        heightCheck();
+    }
+
     void heightCheck()
     {
         if (player.transform.position.y < -1f)
@@ -41,13 +46,9 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        heightCheck();
-    }
-
     public void RespawnPlayer()
     {
         player.transform.position = activeSpawnPoint.transform.position;
+        GameManager.Instance.IncreaseDeathCount();
     }
 }

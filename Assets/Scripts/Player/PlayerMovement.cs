@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 
 public class PlayerMovement : MonoBehaviour
@@ -94,7 +96,8 @@ public class PlayerMovement : MonoBehaviour
             summon.SetActive(false);
             myPreLoadedRopeGuys.Enqueue(guy);
         }
-        Debug.Log(mySummonsParent.name);
+
+        FindObjectOfType<Canvas>().GetComponentInChildren<TextMeshProUGUI>().text = "Deaths: " + GameManager.Instance.GetDeathCount();
     }
 
     void Update()
