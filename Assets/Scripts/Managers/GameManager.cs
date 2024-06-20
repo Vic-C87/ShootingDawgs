@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     int myUnlockedLevelIndex;
 
     int myDeathCount;
+    int myCurrentLevel;
 
     private void Awake()
     {
@@ -49,8 +50,13 @@ public class GameManager : MonoBehaviour
         if (myUnlockedLevelIndex >= aLevelNumber)
         {
             SceneManager.LoadScene(aLevelNumber);
-            
+            myCurrentLevel = aLevelNumber;
         }
+    }
+
+    public int GetCurrentLevel()
+    {
+        return myCurrentLevel;
     }
 
     public void ReturnToLevelSelect(int aLevelToUnlock)

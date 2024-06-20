@@ -36,6 +36,7 @@ public class LevelManager : MonoBehaviour
         myAudioSource.loop = true;
         myAudioSource.volume = 0.2f;
         myAudioSource.Play();
+        playerCanvas.SetLevelText(GameManager.Instance.GetCurrentLevel());
     }
 
     private void Update()

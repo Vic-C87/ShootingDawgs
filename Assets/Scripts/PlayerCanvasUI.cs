@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerCanvasUI : MonoBehaviour
 {
     [SerializeField] GameObject myPauseMenu;
+    [SerializeField] TextMeshProUGUI myCurrentLevelText;
 
     void Start()
     {
@@ -37,5 +39,10 @@ public class PlayerCanvasUI : MonoBehaviour
     {
         SceneManager.LoadScene(0);
         Time.timeScale = 1f;
+    }
+
+    public void SetLevelText(int aCurrentLevel)
+    {
+        myCurrentLevelText.text = "Level: " + aCurrentLevel;
     }
 }
