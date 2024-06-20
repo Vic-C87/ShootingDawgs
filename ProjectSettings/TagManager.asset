@@ -10,6 +10,7 @@ TagManager:
   - Endpoint
   - LevelSelect
   - MenuButtons
+  - PauseMenu
   layers:
   - Default
   - TransparentFX

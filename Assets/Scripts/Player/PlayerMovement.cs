@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -70,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 myPuncherSpawnPosition;
 
+
     void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -96,8 +98,8 @@ public class PlayerMovement : MonoBehaviour
             summon.SetActive(false);
             myPreLoadedRopeGuys.Enqueue(guy);
         }
-
-        FindObjectOfType<Canvas>().GetComponentInChildren<TextMeshProUGUI>().text = "Deaths: " + GameManager.Instance.GetDeathCount();
+        Canvas canvas = FindObjectOfType<Canvas>();
+        canvas.GetComponentInChildren<TextMeshProUGUI>().text = "Deaths: " + GameManager.Instance.GetDeathCount();
     }
 
     void Update()
@@ -526,6 +528,11 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+    public void OnPauseGame(InputAction.CallbackContext aCallbackContext)
+    {
+        LevelManager.Instance.OnPauseGame();
+    }
     #endregion
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -541,5 +548,5 @@ public class PlayerMovement : MonoBehaviour
             myCurrentRopeGuyYPosition = guy.transform.position.y;
             myCurrentRopeLength = guy.GetRopeLength();
         }
-    }
+    }  
 }

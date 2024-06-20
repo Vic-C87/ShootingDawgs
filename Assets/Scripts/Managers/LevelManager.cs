@@ -8,9 +8,13 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance;
     [SerializeField] List<GameObject> spawnPoints = new List<GameObject>();
     [SerializeField] PlayerMovement player;
+    PlayerCanvasUI playerCanvas;
 
     public GameObject activeSpawnPoint;
     AudioSource myAudioSource;
+
+    bool myGameIsPaused;
+    float myTempTimeScale;
 
     private void Awake()
     {
@@ -28,6 +32,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        playerCanvas = FindObjectOfType<PlayerCanvasUI>();
         myAudioSource.loop = true;
         myAudioSource.volume = 0.2f;
         myAudioSource.Play();
@@ -50,5 +55,21 @@ public class LevelManager : MonoBehaviour
     {
         player.transform.position = activeSpawnPoint.transform.position;
         GameManager.Instance.IncreaseDeathCount();
+    }
+
+    public void OnPauseGame()
+    {
+        myGameIsPaused = !myGameIsPaused;
+        if (myGameIsPaused)
+        {
+            myTempTimeScale = Time.timeScale;
+            playerCanvas.DisplayPauseScreen();
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            playerCanvas.HidePauseMenu();
+            Time.timeScale = myTempTimeScale;
+        }
     }
 }
