@@ -82,6 +82,10 @@ public class PlayerMovement : MonoBehaviour
     float myAudioVolume;
 
     [SerializeField] AudioSource mySmokeSound;
+    [SerializeField] LayerMask myRoperLayerMask;
+    [SerializeField] float myRoperCheckRadius;
+
+    List<Vector2> mySpawnedRoperPositions;
 
     void Awake()
     {
@@ -91,6 +95,7 @@ public class PlayerMovement : MonoBehaviour
         myPreLoadedRopeGuys = new Queue<RopeGuy>();
         myAnimator = GetComponentInChildren<Animator>();
         myAudioSource = GetComponent<AudioSource>();
+        mySpawnedRoperPositions = new List<Vector2>();
     }
 
     void Start()
@@ -388,14 +393,28 @@ public class PlayerMovement : MonoBehaviour
 
     void ActivateRopeGuy(Vector2 aPosition)
     {
-        if (myPreLoadedRopeGuys.Count > 0)
+        if (myPreLoadedRopeGuys.Count > 0 && CheckRopeGuyPosition(aPosition))
         {
+            mySpawnedRoperPositions.Add(aPosition);
             RopeGuy guy = myPreLoadedRopeGuys.Dequeue();
             guy.gameObject.SetActive(true);
             guy.transform.position = aPosition;
             SpawnSmoke(aPosition, 1f);
             guy.SetLifeTime(myRopeGuyLifeTime);
         }
+    }
+
+    bool CheckRopeGuyPosition(Vector2 aPosition)
+    {
+        RopeGuy[] myRopeGuys = mySummonsParent.GetComponentsInChildren<RopeGuy>();
+        for (int i = 0; i < myRopeGuys.Length; i++)
+        {
+            if (myRopeGuys[i].gameObject.activeSelf && Vector2.Distance(aPosition, myRopeGuys[i].transform.position) < myRoperCheckRadius)
+            {
+                return false;
+            }           
+        }
+        return true;
     }
 
     public void DeactivateRopeGuy(RopeGuy aRopeGuy)

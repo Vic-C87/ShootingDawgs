@@ -85,6 +85,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 20519d7e88eb58848b266e9f66dc8d5f, type: 3}
   myFadeOutValue: 0.05
   mySmokeSound: {fileID: 5377388211472436011}
+  myRoperLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  myRoperCheckRadius: 1
 --- !u!114 &6400316045354632042
 MonoBehaviour:
   m_ObjectHideFlags: 0
