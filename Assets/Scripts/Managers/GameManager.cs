@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
         myUnlockedLevelIndex = 1;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         myMainScreen.SetActive(true);

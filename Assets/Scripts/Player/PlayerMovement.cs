@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     bool myHaveJumped;
     bool myIsFacingRight;
     bool mySkillsMenuIsOpen;
-    [SerializeField] bool myIsClimbing;
+    bool myIsClimbing;
     bool myAnvilActive;
     bool myIsBats;
     bool myPuncherActive;
@@ -66,6 +66,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject mySmoke;
     [SerializeField] GameObject myRespawnBats;
 
+    Vector3 myPuncherSpawnPosition;
+
     void Awake()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -77,7 +79,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        mySummonsParent = FindObjectOfType<GameManager>().gameObject;
         myPreviousState = EPlayerState.None;
         myState = EPlayerState.Idle;
         myJumpingDirection.Normalize();
@@ -93,6 +94,7 @@ public class PlayerMovement : MonoBehaviour
             summon.SetActive(false);
             myPreLoadedRopeGuys.Enqueue(guy);
         }
+        Debug.Log(mySummonsParent.name);
     }
 
     void Update()
@@ -387,6 +389,7 @@ public class PlayerMovement : MonoBehaviour
         {
             GameObject puncher = Instantiate(mySummons[3], transform.position + (transform.right * myPuncherOffSet * aDirection), transform.rotation);
             SpawnSmoke(transform.position + (transform.right * myPuncherOffSet * aDirection), 1f);
+            myPuncherSpawnPosition = puncher.transform.position;
             Vector3 tempScale = puncher.transform.localScale;
             tempScale.x *= -aDirection;
             puncher.transform.localScale = tempScale;
@@ -422,9 +425,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void ResetPuncher()
     {
-        if (myPuncherActive && Time.time - myPuncherTimeStamp > myPuncherCooldown)
+        if (myPuncherActive && Time.time - myPuncherTimeStamp > myPuncherLifeTime)
         {
             myPuncherActive = false;
+            SpawnSmoke(myPuncherSpawnPosition, 1f);
         }
     }
 
