@@ -1175,8 +1175,8 @@ MonoBehaviour:
     obedient minions at the same time to advance hehe\u2026 Sometimes it\u2019s a
     must to continue, and continue we must!"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3125534ee9109e744aa7c793e41043b0, type: 2}
-  m_sharedMaterial: {fileID: 5063402746980486199, guid: 3125534ee9109e744aa7c793e41043b0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3333453a2a2cc2e479c6d35e860018b2, type: 2}
+  m_sharedMaterial: {fileID: -7389977248958457715, guid: 3333453a2a2cc2e479c6d35e860018b2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1265,7 +1265,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5063402746980486199, guid: 3125534ee9109e744aa7c793e41043b0, type: 2}
+  - {fileID: -7389977248958457715, guid: 3333453a2a2cc2e479c6d35e860018b2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

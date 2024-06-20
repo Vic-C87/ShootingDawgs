@@ -58,7 +58,7 @@ MonoBehaviour:
   myAnvilPullDownForce: 0.5
   myAnvilOffSet: 0.8
   myPuncherOffSet: 1
-  myPuncherLifeTime: 3
+  myPuncherLifeTime: 1
   myGravityWhenBats: 0.4
   myPuncherCooldown: 1
   mySpeed: 5
