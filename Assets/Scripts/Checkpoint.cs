@@ -16,6 +16,7 @@ public class Checkpoint : MonoBehaviour
 
     float myTimeStamp;
     bool myShouldExit;
+    [SerializeField] bool myIsLastLevel;
 
     private void Awake()
     {
@@ -53,10 +54,14 @@ public class Checkpoint : MonoBehaviour
                 Destroy(bats, 1f);
             }
 
-            if (myIsEndPoint) 
+            if (myIsEndPoint && !myIsLastLevel) 
             {
                 myShouldExit = true;
                 myTimeStamp = Time.time;
+            }
+            else if (myIsLastLevel)
+            {
+                FindObjectOfType<PlayerCanvasUI>().ShowGameCompletedScreen();
             }
         }
     }

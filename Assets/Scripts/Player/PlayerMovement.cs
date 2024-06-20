@@ -71,6 +71,17 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 myPuncherSpawnPosition;
 
+    PlayerCanvasUI myPlayerCanvasUI;
+    
+    AudioSource myAudioSource;
+    [SerializeField] AudioClip[] mySummonSounds;
+
+    bool myBatsSoundsArePlaying;
+
+    [SerializeField] float myFadeOutValue;
+    float myAudioVolume;
+
+    [SerializeField] AudioSource mySmokeSound;
 
     void Awake()
     {
@@ -79,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
         myIsFacingRight = true;
         myPreLoadedRopeGuys = new Queue<RopeGuy>();
         myAnimator = GetComponentInChildren<Animator>();
+        myAudioSource = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -100,6 +112,8 @@ public class PlayerMovement : MonoBehaviour
         }
         Canvas canvas = FindObjectOfType<Canvas>();
         canvas.GetComponentInChildren<TextMeshProUGUI>().text = "Deaths: " + GameManager.Instance.GetDeathCount();
+        myPlayerCanvasUI = FindObjectOfType<PlayerCanvasUI>();
+        myAudioVolume = myAudioSource.volume;
     }
 
     void Update()
@@ -121,6 +135,18 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             Climb();
+        }
+
+        if (myBatsSoundsArePlaying && myAudioSource.volume > 0) 
+        {
+            myAudioSource.volume -= myFadeOutValue;
+            if (myAudioSource.volume <= 0)
+            {
+                myAudioSource.Stop();
+                myAudioSource.volume = myAudioVolume;
+                myBatsSoundsArePlaying = false;
+            }
+
         }
     }
 
@@ -248,6 +274,7 @@ public class PlayerMovement : MonoBehaviour
                 myAnimator.SetBool("isBats", false);
                 myIsBats = false;
                 myRigidbody.gravityScale = 1f;
+                myBatsSoundsArePlaying = true;
             }
             if (myAnvilActive)
             {
@@ -355,6 +382,7 @@ public class PlayerMovement : MonoBehaviour
     public void SpawnSmoke(Vector3 aPosition, float aDuration)
     {
         GameObject smoke = Instantiate(mySmoke, aPosition, Quaternion.identity);
+        mySmokeSound.Play();
         Destroy(smoke, aDuration);
     }
 
@@ -385,6 +413,8 @@ public class PlayerMovement : MonoBehaviour
             myRigidbody.velocity = Vector2.zero;
             myRigidbody.AddForce(Vector2.down * myAnvilPullDownForce, ForceMode2D.Impulse);
             myAnvilActive = true;
+            myAudioSource.clip = mySummonSounds[1];
+            myAudioSource.Play();
         }
     }
 
@@ -420,12 +450,15 @@ public class PlayerMovement : MonoBehaviour
             myAnimator.SetBool("isFalling", false);
             myAnimator.SetBool("isJumping", false);
             myAnimator.SetBool("isBats", true);
+            myAudioSource.clip = mySummonSounds[0];
+            myAudioSource.Play();
         }
     }
 
     public void SetSelectedSkill(ESkills aSelectedSkill)
     {
         mySelectedSkill = aSelectedSkill;
+        myPlayerCanvasUI.SetSkillImageUI(aSelectedSkill);
     }
 
     public void ResetPuncher()
