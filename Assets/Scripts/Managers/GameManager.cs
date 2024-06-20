@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [SerializeField] Sprite myCursor;
     [SerializeField] Image myCursorGameObject;
     [SerializeField] GameObject myLevelSelectScreen;
     [SerializeField] GameObject myMainScreen;
@@ -34,7 +33,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Cursor.visible = false;
-        myCursorGameObject.sprite = myCursor;
         myLevelSelectScreen.SetActive(false);
     }
 
@@ -51,6 +49,7 @@ public class GameManager : MonoBehaviour
 
     public void OnPressStart()
     {
+        Debug.Log("Start!");
         myMainScreen.SetActive(false);
         myLevelSelectScreen.SetActive(true);
 
